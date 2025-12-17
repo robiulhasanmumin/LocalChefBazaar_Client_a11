@@ -7,7 +7,7 @@ import logo from "../assets/burger.png"
 
 const Footer = () => {
   return (
- <footer >
+ <footer>
       <div className="footer sm:footer-horizontal p-10">
         {/* logo */}
         <div>
@@ -58,8 +58,8 @@ const Footer = () => {
       </div>
 
       {/* Copyright */}
-      <div className="text-center text-sm text-gray-400 mt-6 border-t border-gray-700 pt-4">
-        © {new Date().getFullYear()} LocalChefBazaar. All rights reserved.
+      <div className="text-center text-sm text-gray-400 mt-6 border-t border-gray-700 py-4">
+        © {new Date().getFullYear()} LocalChefBazaar. All rights reserved. Made by RH Mumin
       </div>
     </footer>
     
