@@ -1,2 +1,18 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui"{
+   themes: light --default
+ };
+
+  @plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: #F0B100;
+  /* --color-secondary: #03373D; */
+}
+
+li a.active{
+   text-decoration: underline;
+   text-underline-offset: 6px;
+   color: #F0B100 ;
+   font-weight: 700;
+}
