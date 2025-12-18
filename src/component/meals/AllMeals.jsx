@@ -2,7 +2,12 @@ import React from 'react'
 
 const AllMeals = () => {
   return (
-    <div>AllMeals</div>
+    <div>
+      <h1 className='text-4xl font-bold text-center text-primary my-10'>All Meals</h1>
+      <div>
+        
+      </div>
+    </div>
   )
 }
 

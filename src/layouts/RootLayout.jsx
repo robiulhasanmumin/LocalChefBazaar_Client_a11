@@ -9,7 +9,9 @@ const RootLayout = () => {
       <div className='max-w-7xl mx-auto'>
 
       <Navbar></Navbar>
+      <div className='p-6 lg:p-0'>
       <Outlet></Outlet>
+      </div>
       <Footer></Footer>
       </div>
     </div>
