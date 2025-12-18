@@ -19,7 +19,7 @@ const DailyMeals = () => {
     <div>
       <h1 className='text-3xl font-bold text-primary text-center mt-12'>Daily Meals</h1>
       
-      <div className="grid lg:grid-cols-3 grid-cols-1 gap-4 mt-10">
+      <div className="grid lg:grid-cols-3 grid-cols-1 gap-4 mt-10 lg:px-10">
         {
           meals.slice(0, 6).map(meal=><Meal meal={meal} key={meal._id}></Meal>)
         }
