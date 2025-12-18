@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router";
 import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/Home";
 import AllMeals from "../component/meals/AllMeals";
+import MealDetails from "../component/meals/MealDetails";
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ export const router = createBrowserRouter([
       {
         path:"all-meals",
         Component:AllMeals
+      },
+      {
+        path:"meal-details/:id",
+        Component:MealDetails
       }
     ]
   },

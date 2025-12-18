@@ -5,7 +5,7 @@ import { FaLocationDot } from "react-icons/fa6";
 
 
 const Meal = ({meal}) => {
-  const {chefName,chefId,foodImage,foodName,price,rating,deliveryArea} = meal
+  const {_id,chefName,chefId,foodImage,foodName,price,rating,deliveryArea} = meal
   return (
 <div className="border-2 border-gray-300 rounded-2xl p-5">
   {/* content */}
@@ -22,7 +22,7 @@ const Meal = ({meal}) => {
 
       <p className="flex gap-1 items-center text-[18px] font-semibold "><FaLocationDot /> {deliveryArea}</p>
     </div>
-      <Link className='btn btn-primary text-black font-bold w-full mt-3' to={`/partnerDetails` }>View Profile</Link>
+      <Link className='btn btn-primary text-black font-bold w-full mt-3' to={`/meal-details/${_id}` }>See Details</Link>
 </div>
   )
 }
