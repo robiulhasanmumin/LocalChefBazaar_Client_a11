@@ -3,6 +3,9 @@ import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/Home";
 import AllMeals from "../component/meals/AllMeals";
 import MealDetails from "../component/meals/MealDetails";
+import AuthLayOut from "../layouts/AuthLayOut";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
 
 export const router = createBrowserRouter([
   {
@@ -23,4 +26,18 @@ export const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path:"/",
+    Component:AuthLayOut,
+    children:[
+      {
+        path:"login",
+        Component:Login
+      },
+      {
+        path:"register",
+        Component:Register
+      }
+    ]
+  }
 ]);
