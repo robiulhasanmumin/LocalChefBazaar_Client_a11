@@ -14,8 +14,7 @@ const Login = () => {
     signInUser(data.email, data.password)
     .then(()=>{
       Swal.fire({
-  title: "Good job!",
-  text: "You clicked the button!",
+  title: "Successfully Loged In!",
   icon: "success"
 });
       navigate(location?.state || "/")
@@ -27,7 +26,7 @@ const Login = () => {
 
   return (
     <div>
-       <div className="card mx-auto w-full mt-10 md:mt-0 max-w-sm shrink-0">
+       <div className="card mx-auto w-full mt-20 md:mt-0 max-w-sm shrink-0">
         <div className='px-6'>
         <h3 className="text-3xl font-bold">Welcome Back</h3>
         <p>Please Login</p>
@@ -39,11 +38,11 @@ const Login = () => {
 
         <fieldset className="fieldset">
           <label className="label">Email</label>
-          <input type="email" className="input w-full" {...register("email",{required:true})} placeholder="Email" />
+          <input type="email" className="input w-full bg-gray-800" {...register("email",{required:true})} placeholder="Email" />
           {errors.email?.type === "required" && <p className='text-red-500'>Email Required</p> }
 
           <label className="label">Password</label>
-          <input type="password" className="input w-full" {...register("password",{required:true,minLength:6})} placeholder="Password" />
+          <input type="password" className="input w-full bg-gray-800" {...register("password",{required:true,minLength:6})} placeholder="Password" />
           {errors.password?.type==="required" && <p className='text-red-500'>Password required</p>}
           {errors.password?.type==="minLength" && <p className='text-red-500'>minimum 6 carecter required</p>}
 

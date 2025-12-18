@@ -7,12 +7,12 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBLQUhDSDz74qftnbzrdW90ZAKrBSJ58Sw",
-  authDomain: "local-chef-bazaar-42865.firebaseapp.com",
-  projectId: "local-chef-bazaar-42865",
-  storageBucket: "local-chef-bazaar-42865.firebasestorage.app",
-  messagingSenderId: "713249845308",
-  appId: "1:713249845308:web:cfd3b078a9310ac903d339"
+  apiKey:import.meta.env.VITE_apiKey,
+  authDomain:import.meta.env.VITE_authDomain,
+  projectId:import.meta.env.VITE_projectId,
+  storageBucket:import.meta.env.VITE_storageBucket,
+  messagingSenderId:import.meta.env.VITE_messagingSenderId,
+  appId:import.meta.env.VITE_appId,
 };
 
 // Initialize Firebase

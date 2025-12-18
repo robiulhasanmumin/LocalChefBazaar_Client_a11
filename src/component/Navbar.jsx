@@ -1,20 +1,52 @@
 import React from 'react'
 import Logo from './Logo'
 import { Link, NavLink } from 'react-router'
+import useAuth from '../hooks/useAuth'
+import { FaRegUserCircle } from 'react-icons/fa'
+import { IoMdLogOut } from 'react-icons/io'
+import Swal from 'sweetalert2'
 
 const Navbar = () => {
+    const {user,logOut} = useAuth()
+
     const links = <>
       <li><NavLink to="/">Home</NavLink></li>
       <li><NavLink to="/all-meals">All Meals</NavLink></li>
-      {/* {
+      {
         user &&
         <>
-      <li><NavLink to="/createPartnerProfile">Create Partner Profile</NavLink></li>
-      <li><NavLink to="/myConnection">My Connections </NavLink></li>
+      <li><NavLink to="/createPartnerProfile">Dashboard</NavLink></li>
         </>
-      } */}
+      }
 
   </>
+
+
+  const handleLogOut=()=>{
+          Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "red",
+  cancelButtonColor: "green",
+  confirmButtonText: "LogOut!"
+}).then((result) => {
+  if (result.isConfirmed) {
+        logOut()
+    .then(()=>{
+      Swal.fire({
+        title: "Loged Out Successfully!",
+        icon: "success"
+      });
+    })
+    .catch(err=>alert(err))
+
+  }
+});
+
+  }
+
 
   return (
 <div className="navbar shadow-md shadow-gray-800 lg:px-5">
@@ -38,28 +70,22 @@ const Navbar = () => {
   </div>
 
   <div className="navbar-end">
-    {/* {
+    {
       user ? 
 
       <>
-          <div className="dropdown dropdown-end">
-  <img src={user?.photoURL} tabIndex={0} role="button" className="cursor-pointer w-[45px] h-[45px] rounded-full mr-4"></img>
-  <ul tabIndex="-1" className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-    <li> <Link to="/myProfile" className="text-blue-500"><FaRegUserCircle />
- My Profile</Link></li>
-    <li> <Link to="/" onClick={handleLogOut} className="text-red-500"><MdLogout /> LogOut</Link></li>
-  </ul>
-</div>
+   <Link to="/myProfile" className="text-blue-500">  <img src={user?.photoURL} className="cursor-pointer w-[45px] h-[45px] rounded-full mr-4"></img></Link>
+   <Link to="/" onClick={handleLogOut} className="btn bg-red-500 text-white border-0 shadow-none">LogOut</Link>
       </>
       :
 
-          <> */}
+          <>
     <Link to="/login" className="btn btn-primary text-black border-0 font-bold">Login</Link>
     <Link to="/register" className="btn btn-primary  text-black border-0 ml-2 mr-2 font-bold">Register</Link>
 
-          {/* </>
+          </>
     }
- */}
+
 
   </div>
 </div>
