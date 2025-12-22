@@ -13,8 +13,10 @@ const Register = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
+  const password = watch("password");
 
   const {registerUser,updateUserProfile}=useAuth()
  
@@ -136,6 +138,24 @@ const Register = () => {
           {
             errors.password?.type==="pattern" && <p className="text-red-500">at least 1 uppercase, lowercse and 1 digit</p>
           }
+
+
+         {/*confirm password  */}
+          <label className="label">Confirm Password</label>
+          <input
+            type="password"
+            {...register("confirmPassword", { required: true,
+              validate: (value) =>
+              value === password || "Passwords do not match",
+             })}
+            className="input w-full bg-gray-800"
+            placeholder="Confirm Password"
+          />
+         {errors.confirmPassword && (
+         <p className="text-red-500">
+          {errors.confirmPassword.message}
+          </p>
+          )}
 
 
           <button className="btn btn-neutral bg-primary text-black border-none shadow-none mt-4">Register</button>
