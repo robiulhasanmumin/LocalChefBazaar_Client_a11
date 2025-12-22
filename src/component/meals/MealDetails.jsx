@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import useAxiosSecure from '../../hooks/useAxiosSecure'
 import { useQuery } from '@tanstack/react-query'
-import { useNavigate, useParams } from 'react-router'
+import { Link, useNavigate, useParams } from 'react-router'
 import { FaRegHeart, FaStar, FaUsers } from 'react-icons/fa'
 import { FaBowlFood, FaLocationDot } from 'react-icons/fa6'
 import { IoIosTime } from "react-icons/io";
@@ -140,11 +140,11 @@ const handleAddFavorite = async () => {
 
 
         <div className="flex gap-3 mt-2">
-          <button
+          <Link to={`/order-meal/${id}`}
             className="btn btn-primary text-black font-bold"
           >
            <FaBowlFood />  Order Now
-          </button>
+          </Link>
           <button onClick={handleAddFavorite}
             className="btn btn-primary text-black font-bold"
           >
