@@ -6,8 +6,8 @@ const PrivateRoutes = ({children}) => {
   const {user,loading} = useAuth()
   const location = useLocation()
   if(loading){
-    return <div>
-      <span className="loading loading-infinity loading-xl"></span>
+    return <div className='w-full mx-auto bg-gray-900 text-primary h-screen text-center py-10'>
+      <span className="loading loading-infinity loading-xl w-[80px] text-primary"></span>
     </div>
   }
   if(!user){

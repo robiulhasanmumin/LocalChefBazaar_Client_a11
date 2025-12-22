@@ -8,11 +8,18 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import PrivateRoutes from "./PrivateRoutes";
 import OrderMeal from "../component/meals/OrderMeal";
+import DashboardLayout from "../layouts/DashboardLayout";
+import ErrorPage from "../pages/ErrorPage";
+import Profile from "../pages/dashboard/users/Profile";
+import MyOrders from "../pages/dashboard/users/MyOrders";
+import MyReviews from "../pages/dashboard/users/MyReviews";
+import MyFavourites from "../pages/dashboard/users/MyFavourites";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
+    errorElement:<ErrorPage></ErrorPage>,
     children:[
       {
         index:true,
@@ -44,6 +51,16 @@ export const router = createBrowserRouter([
         path:"register",
         Component:Register
       }
+    ]
+  },
+  {
+    path:"/dashboard",
+    element:<PrivateRoutes><DashboardLayout></DashboardLayout></PrivateRoutes>,
+    children:[
+    { path: "profile", element: <PrivateRoutes><Profile/></PrivateRoutes> },
+    { path: "my-orders", element: <PrivateRoutes><MyOrders/></PrivateRoutes> },
+    { path: "my-reviews", element: <MyReviews /> },
+    { path: "favorites", element: <MyFavourites /> },
     ]
   }
 ]);
