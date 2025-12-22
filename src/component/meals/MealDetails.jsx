@@ -5,13 +5,17 @@ import { useNavigate, useParams } from 'react-router'
 import { FaStar, FaUsers } from 'react-icons/fa'
 import { FaLocationDot } from 'react-icons/fa6'
 import { IoIosTime } from "react-icons/io";
+import useAuth from '../../hooks/useAuth'
+import Swal from 'sweetalert2'
 
 
 const MealDetails = () => {
   const {id} = useParams()
+      const {user} = useAuth()
   const axiosSecure = useAxiosSecure()
   const [mealData, setMealData]  = useState({})
-  const navigate = useNavigate()
+  const [comment, setComment] = useState('')
+  const [ratings, setRatings] = useState(5)
 
   const {data:meals = []} = useQuery({
      queryKey: ['meals'],
@@ -20,21 +24,61 @@ const MealDetails = () => {
       return res.data
      }
   })
+  // reviews
+    const {data:reviews = [], refetch} = useQuery({
+     queryKey: ['reviews',id],
+     queryFn: async()=>{
+      const res = await axiosSecure.get(`/reviews?foodId=${id}`)
+      return res.data
+     }
+  })
+
+
 
   const {foodName,chefName, foodImage,price,rating,ingredients,
 deliveryArea,estimatedDeliveryTime,chefExperience,chefId } = mealData || {}
 
-  useEffect(()=>{
-    const singleMeal = meals.find(meal=>meal._id===id)
-    setMealData(singleMeal)
-  },[meals,id])
 
+useEffect(() => {
+  if (meals.length > 0) {
+    const singleMeal = meals.find(meal => meal._id === id)
+    if (singleMeal) {
+      setMealData(singleMeal)
+    }
+  }
+}, [meals, id])
 
   const ingredient = ingredients?.map(i=>i).join(", ")
 
 
 
+  // reviews
+  const handleReviewSubmit = async (e) => {
+  e.preventDefault();
+
+  const reviewInfo = {
+    foodId: id,
+    reviewerName: user.displayName,
+    reviewerImage: user.photoURL,
+    rating:ratings,
+    comment:comment,
+    date:new Date(),
+  };
+
+  await axiosSecure.post("/reviews", reviewInfo);
+
+  Swal.fire("Success!", "Review submitted successfully!", "success");
+
+  setComment("");
+  setRatings(5);
+
+  refetch(); 
+};
+
+
   return (
+
+    <div>
     <div className="flex flex-col md:flex-row gap-8 px-10 py-20 items-center">
       <div className="flex-1">
         <img
@@ -81,14 +125,76 @@ deliveryArea,estimatedDeliveryTime,chefExperience,chefId } = mealData || {}
           >
             Order Now
           </button>
-          {/* <button
-            onClick={() => navigate(-1)}
-            className="btn btn-primary text-black font-bold"
-          >
-            Go Back
-          </button> */}
         </div>
       </div>
+
+
+
+    </div>
+
+    {/* reviews section */}
+
+    <div>
+      <h2 className="text-3xl text-primary font-bold mb-6">Customer Reviews</h2>
+
+<div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
+
+    {reviews.map(review => (
+  <div key={review._id} className="border rounded-xl p-4">
+    <div className="flex gap-3 items-center">
+      <img src={review.reviewerImage} className="w-10 h-10 rounded-full" />
+      <div>
+        <p className="font-bold">{review.reviewerName}</p>
+        <p className="text-sm text-gray-500">
+          {new Date(review.date).toLocaleDateString()}
+        </p>
+      </div>
+    </div>
+
+    <p className=" mt-2">"{review.comment}"</p>
+    <p className="">⭐ {review.rating}</p>
+  </div>
+))}
+</div>
+
+{/* give review*/}
+
+<div className="mt-10 mb-20">
+  <h3 className="text-2xl font-bold text-primary mb-4">Give Review</h3>
+
+  <form onSubmit={handleReviewSubmit} className="space-y-4 max-w-md">
+    
+    {/* Rating */}
+    <select
+      value={ratings}
+      onChange={(e) => setRatings(Number(e.target.value))}
+      className="select select-bordered bg-gray-800 w-full"
+    >
+      <option value={5}>⭐⭐⭐⭐⭐</option>
+      <option value={4}>⭐⭐⭐⭐</option>
+      <option value={3}>⭐⭐⭐</option>
+      <option value={2}>⭐⭐</option>
+      <option value={1}>⭐</option>
+    </select>
+
+    {/* Comment */}
+    <textarea
+      value={comment}
+      onChange={(e) => setComment(e.target.value)}
+      className="textarea textarea-bordered w-full bg-gray-800"
+      placeholder="Write your review..."
+      required
+    />
+
+    <button className="btn btn-primary text-black font-bold w-full">
+      Submit Review
+    </button>
+  </form>
+</div>
+    </div>
+
+
+
     </div>
   )
 }
