@@ -32,6 +32,7 @@ const OrderMeal = () => {
       mealName: meal.foodName,
       price: meal.price,
       quantity: data.quantity,
+      chefName: meal.chefName,
       chefId: meal.chefId,
       userEmail: user.email,
       userAddress: data.address,
@@ -61,7 +62,7 @@ if (confirm.isConfirmed) {
     showConfirmButton: false,
   });
 
-  // navigate("/dashboard/my-orders");
+  navigate("/dashboard/my-orders");
 }
 } catch (error) {
   if (error.response?.status === 409) {

@@ -14,6 +14,8 @@ import Profile from "../pages/dashboard/users/Profile";
 import MyOrders from "../pages/dashboard/users/MyOrders";
 import MyReviews from "../pages/dashboard/users/MyReviews";
 import MyFavourites from "../pages/dashboard/users/MyFavourites";
+import Payment from "../pages/dashboard/users/Payment";
+import PaymentSuccess from "../pages/dashboard/users/PaymentSuccess";
 
 export const router = createBrowserRouter([
   {
@@ -59,8 +61,10 @@ export const router = createBrowserRouter([
     children:[
     { path: "profile", element: <PrivateRoutes><Profile/></PrivateRoutes> },
     { path: "my-orders", element: <PrivateRoutes><MyOrders/></PrivateRoutes> },
-    { path: "my-reviews", element: <MyReviews /> },
-    { path: "favorites", element: <MyFavourites /> },
+    { path: "my-reviews", element: <PrivateRoutes><MyReviews /></PrivateRoutes>  },
+    { path: "favorites", element: <PrivateRoutes><MyFavourites /></PrivateRoutes> },
+    {path:"payment", element:<Payment/>},
+    {path:"payment-success", element:<PaymentSuccess/>}
     ]
   }
 ]);
