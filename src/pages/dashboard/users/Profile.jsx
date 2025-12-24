@@ -76,7 +76,7 @@ const Profile = () => {
       <div className="space-y-2 text-center text-xl">
         <p>Name : <span className='font-bold'>{currentUser.displayName}</span> </p>
         <p>Email : <span className='font-bold'>{currentUser.email}</span> </p>
-        <p>Role : <span className='font-bold'>{currentUser.role}</span> </p>
+        <p>Role : <span className={currentUser.role==="admin" ? "text-primary font-bold" : "font-bold"}>{currentUser.role}</span> </p>
         <p>Status : <span className={currentUser.status === "fraud" ? "text-red-500" : "text-green-500"}>{currentUser.status}</span> </p>
       </div>
 

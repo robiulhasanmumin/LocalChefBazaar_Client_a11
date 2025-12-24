@@ -74,7 +74,7 @@ const Navbar = () => {
       user ? 
 
       <>
-   <Link to="/myProfile" className="text-blue-500">  <img src={user?.photoURL} className="cursor-pointer w-[45px] h-[45px] rounded-full mr-4"></img></Link>
+   <Link to="/dashboard/profile" className="text-blue-500">  <img src={user?.photoURL} className="cursor-pointer w-[45px] h-[45px] rounded-full mr-4"></img></Link>
    <Link to="/" onClick={handleLogOut} className="btn bg-red-500 text-white border-0 shadow-none">LogOut</Link>
       </>
       :

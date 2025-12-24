@@ -1,12 +1,17 @@
 import React from 'react'
 import { Link, NavLink, Outlet } from 'react-router'
 import Logo from '../component/Logo'
-import { FaHeart, FaLuggageCart, FaRegUserCircle } from 'react-icons/fa'
-import { MdOutlineReviews } from "react-icons/md";
+import { FaHeart, FaLuggageCart, FaRegUserCircle, FaUsers } from 'react-icons/fa'
+import { MdConnectWithoutContact, MdOutlineReviews } from "react-icons/md";
+import useRole from '../hooks/useRole';
+import { IoIosStats } from 'react-icons/io';
 
 
 
 const DashboardLayout = () => {
+
+ const { role } = useRole();
+
   return (
     <div className='bg-gray-900 text-white'>
 
@@ -50,6 +55,10 @@ const DashboardLayout = () => {
           </NavLink>
         </li>
 
+{/* user */}
+{
+   role === "user" && (
+    <>  
         <li>
           <NavLink to="/dashboard/my-orders" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="myOrders">
           <FaLuggageCart className='text-xl' />
@@ -68,6 +77,35 @@ const DashboardLayout = () => {
           <span className="is-drawer-close:hidden">My Favourites</span>
           </NavLink>
         </li>
+    </>
+   )
+}
+
+{/* Admin */}
+{
+  role === "admin" && (
+    <>
+        <li>
+          <NavLink to="/dashboard/admin/request" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="manageRequest">
+          <MdConnectWithoutContact className='text-xl' />
+          <span className="is-drawer-close:hidden">Manage Request</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/dashboard/admin/users" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="manageUsers">
+          <FaUsers className='text-xl' />
+          <span className="is-drawer-close:hidden">Manage Users</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/dashboard/admin/statistic" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Statistics">
+          <IoIosStats className='text-xl' />
+          <span className="is-drawer-close:hidden">Statistics</span>
+          </NavLink>
+        </li>
+    </>
+  )
+}
 
         {/* chef */}
 
