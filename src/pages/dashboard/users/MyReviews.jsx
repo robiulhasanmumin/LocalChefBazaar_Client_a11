@@ -79,11 +79,11 @@ const [editingReview, setEditingReview] = useState(null);
             <p>
               <strong>Meal:</strong> {review.foodName}
             </p>
-            <p>
-              <strong>Rating:</strong> {review.rating}
+            <p className='text-primary'>
+              <strong className='text-white'>Rating:</strong> {review.rating}
             </p>
             <p>
-              <strong>Comment:</strong> {review.comment}
+              <strong>Comment:</strong> "{review.comment}"
             </p>
             <p>
               <strong>Date:</strong>{" "}
