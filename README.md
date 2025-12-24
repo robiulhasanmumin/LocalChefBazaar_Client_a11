@@ -19,8 +19,8 @@ The platform includes features like user registration, food ordering, real-time 
 - Firebase
 - MongoDB
 - TanStackQuery
-- React Hook Form
 - Stripe(Payment method)
+- React Hook Form
 
 
 ## How to Run
