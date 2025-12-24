@@ -56,7 +56,7 @@ const { data: orders = [], refetch } = useQuery({
 
   return (
     <div className='p-5'>
-      <h1 className="text-3xl font-bold mb-7 text-primary text-center">My Orders</h1>
+      <h1 className="text-3xl font-bold mb-7 text-primary text-center">My Orders : {orders.length}</h1>
       <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
 {orders.map(order => (
   <div key={order._id} className="border rounded px-5 py-4">

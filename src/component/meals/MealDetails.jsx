@@ -60,6 +60,8 @@ useEffect(() => {
     foodId: id,
     reviewerName: user.displayName,
     reviewerImage: user.photoURL,
+    email:user.email,
+    foodName:foodName,
     rating:ratings,
     comment:comment,
     date:new Date(),
