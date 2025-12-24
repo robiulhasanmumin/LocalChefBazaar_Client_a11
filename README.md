@@ -4,7 +4,9 @@
 ### Server URL: https://study-mates-server-site.vercel.app
 
 ## Description
-**Study Mate** is a simple React project created to practice component-based design,authentication, routing, and Tailwind styling. It includes pages like Home, Find partner, Create partner, Register and login.
+**Local Chef Bazaar** is a modern online platform that connects home cooks with people looking for fresh, homemade food. Customers can explore daily menus, check a chef’s availability, place orders, make secure payments, and track their orders in real time.
+For home cooks, it provides an easy way to earn money from their kitchen without needing a physical restaurant. For customers, it offers access to healthy, affordable, homemade meals prepared by local chefs.
+The platform includes features like user registration, food ordering, real-time order tracking, ratings and reviews, and role-based access control. LocalChefBazaar will be built using the MERN stack (MongoDB, Express.js, React, Node.js).
 
 ## Tecnologies Used
 - React Js
@@ -12,10 +14,14 @@
 - Tailwind CSS
 - Vite
 - JavaScript
-- SweetAlert, Toestify
+- SweetAlert
 - Daisy UI
 - Firebase
 - MongoDB
+- TanStackQuery
+- React Hook Form
+- Stripe(Payment method)
+
 
 ## How to Run
 1. Clone this repository
