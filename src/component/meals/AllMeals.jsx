@@ -28,7 +28,7 @@ const sortData = [...meals].sort((a,b)=>{
 })
 
 // pagination
-const mealPerPage = 9;
+const mealPerPage = 10;
 const indexOfLast = currentPage * mealPerPage;
 const indexOfFirst = indexOfLast - mealPerPage;
 const totalPage = Math.ceil(meals.length / mealPerPage)
