@@ -1,6 +1,7 @@
 import React from "react";
 import hero from "../assets/53094793.png";
 import { motion } from "framer-motion";
+import { Link } from "react-router";
 
 const Banner = () => {
   return (
@@ -12,13 +13,11 @@ const Banner = () => {
           Delivered straight from Local Chefs to your Table. Delivered with
           Care. <br /> Cooked with Love by Local Chefs.
         </p>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
+        <Link to="/all-meals"
           className="btn btn-primary text-[16px] text-black font-bold"
         >
           Order Now
-        </motion.button>
+        </Link>
       </div>
       <div className="h-[420px] w-[420px]">
         <motion.img

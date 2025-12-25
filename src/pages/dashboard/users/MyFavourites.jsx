@@ -63,20 +63,27 @@ const MyFavourites = () => {
         <th>Actions</th>
       </tr>
     </thead>
-    <tbody>
       {
-        favourites.map((favourite,i)=>(
-      <tr key={i}>
-        <th>{i+1}</th>
-        <td>{favourite.mealName}</td>
-        <td>{favourite.chefName}</td>
-        <td>{favourite.price}</td>
-        <td>{favourite.addedTime}</td>
-        <td><button onClick={()=>handleDelete(favourite._id)} className='btn btn-error'>Delete</button></td>
-      </tr>
-        ))
+        favourites.length > 0 ?
+        
+<tbody>
+  {
+    favourites.map((favourite,i)=>(
+  <tr key={i}>
+    <th>{i+1}</th>
+    <td>{favourite.mealName}</td>
+    <td>{favourite.chefName}</td>
+    <td>{favourite.price}</td>
+    <td>{favourite.addedTime}</td>
+    <td><button onClick={()=>handleDelete(favourite._id)} className='btn btn-error'>Delete</button></td>
+  </tr>
+    ))
+  } 
+</tbody>
+        :
+      <p className='text-gray-500 text-3xl mt-10'>Yours favourites not found...</p>
+
       }
-    </tbody>
       </table>
 
     </div>

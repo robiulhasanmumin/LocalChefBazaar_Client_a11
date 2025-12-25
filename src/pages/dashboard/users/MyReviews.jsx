@@ -73,6 +73,8 @@ const [editingReview, setEditingReview] = useState(null);
     <div className='p-5'>
     <h1 className="text-3xl font-bold mb-7 text-primary text-center">My Reviews : {reviews.length}</h1>
 
+    {
+      reviews.length > 0 ?
      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {reviews.map((review) => (
           <div key={review._id} className="border rounded p-4">
@@ -105,7 +107,10 @@ const [editingReview, setEditingReview] = useState(null);
             </div>
           </div>
         ))}
-      </div>
+      </div> :
+      <p className='text-3xl text-gray-500 mt-10'>Reviews Not Found...</p>
+    }
+
 
       {/* Edit Modal */}
       {editingReview && (

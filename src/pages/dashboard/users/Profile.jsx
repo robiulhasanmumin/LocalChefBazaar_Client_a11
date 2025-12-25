@@ -83,7 +83,7 @@ const Profile = () => {
       {/* Buttons */}
       <div className="mt-6 flex space-y-3 justify-center gap-3">
         {
-          currentUser.role === "user" && (
+          currentUser.role === "user" && currentUser.status !== "fraud" && (
             <>
               <button
                 onClick={() => handleRoleRequest("chef")}

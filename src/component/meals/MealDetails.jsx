@@ -24,6 +24,27 @@ const MealDetails = () => {
       return res.data
      }
   })
+
+    const { data: currentUser = {} } = useQuery({
+    queryKey: ['currentUser', user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/users/${user.email}`);
+      return res.data;
+    }
+  });
+  const isFraud = currentUser?.status === "fraud";
+  const handleOrder = () => {
+  if (isFraud) {
+    Swal.fire(
+      "Restricted",
+      "You are restricted from placing orders",
+      "error"
+    );
+    return;
+  }
+};
+  
   // reviews
     const {data:reviews = [], refetch} = useQuery({
      queryKey: ['reviews',id],
@@ -142,10 +163,10 @@ const handleAddFavorite = async () => {
 
 
         <div className="flex gap-3 mt-2">
-          <Link to={`/order-meal/${id}`}
-            className="btn btn-primary text-black font-bold"
-          >
-           <FaBowlFood />  Order Now
+          <Link  to={isFraud ? "#" : `/order-meal/${id}`}
+            onClick={handleOrder}
+className={`btn btn-primary text-black font-bold ${isFraud ? "opacity-50 cursor-not-allowed" : ""}`}          >
+           <FaBowlFood />  {isFraud ? "Order Disabled" : "Order Now"}
           </Link>
           <button onClick={handleAddFavorite}
             className="btn btn-primary text-black font-bold"

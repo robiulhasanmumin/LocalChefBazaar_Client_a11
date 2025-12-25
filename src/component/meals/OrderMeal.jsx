@@ -12,6 +12,7 @@ const OrderMeal = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
+
   const { register, handleSubmit, watch } = useForm();
   const quantity = watch("quantity", 1);
 
@@ -24,9 +25,11 @@ const OrderMeal = () => {
     },
   });
 
+
   const totalPrice = meal.price * quantity;
 
   const onSubmit = async (data) => {
+
     const orderInfo = {
       foodId: id,
       mealName: meal.foodName,
@@ -72,6 +75,13 @@ if (confirm.isConfirmed) {
       "warning"
     );
   }
+   if (error.response?.status === 403) {
+    Swal.fire(
+      "Access Denied",
+      "Your account is marked as fraud. You cannot place orders.",
+      "error"
+    );
+  } 
 }
 
 
