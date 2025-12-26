@@ -166,7 +166,7 @@ const CreateMeal = () => {
           value={user?.email}
           readOnly
           className="input input-bordered w-full bg-gray-800" />
-</div>
+        </div>
 
         <button className="btn btn-primary w-fit text-black mt-3 font-bold">
           Create Meal
