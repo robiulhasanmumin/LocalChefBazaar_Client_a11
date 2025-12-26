@@ -35,7 +35,6 @@ const Statistic = () => {
     <div className='p-5'>
       <h1 className="text-3xl font-bold mb-10 text-primary text-center">Platform Statistics</h1>
 
-      {/* 🔹 Step 2.2: Cards to show totals */}
       <div className='grid grid-cols-1 md:grid-cols-4 gap-4 mb-10'>
         <div className='card p-4 shadow'>
           <p className='font-bold'>Total Users</p>
@@ -55,9 +54,9 @@ const Statistic = () => {
         </div>
       </div>
 
-      {/* 🔹 Step 2.3: Charts */}
+      {/* Charts */}
       <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
-        {/* Bar chart for payments */}
+        {/* Bar chart */}
         <BarChart width={400} height={300} data={paymentData}>
           <XAxis dataKey="name" />
           <YAxis />
@@ -65,7 +64,7 @@ const Statistic = () => {
           <Bar dataKey="value" fill="#8884d8" />
         </BarChart>
 
-        {/* Pie chart for orders */}
+        {/* Pie chart */}
         <PieChart width={400} height={300}>
           <Pie
             data={ordersData}

@@ -81,16 +81,19 @@ const Profile = () => {
       </div>
 
       {/* Buttons */}
-      <div className="mt-6 flex space-y-3 justify-center gap-3">
+      {/* <div className="mt-6 flex space-y-3 justify-center gap-3">
         {
           currentUser.role === "user" && currentUser.status !== "fraud" && (
             <>
+            {
+              currentUser.role !== "chef" &&
               <button
                 onClick={() => handleRoleRequest("chef")}
                 className="btn btn-primary text-black font-bold"
               >
                 Be a Chef
               </button>
+            }
 
               <button
                 onClick={() => handleRoleRequest("admin")}
@@ -101,7 +104,38 @@ const Profile = () => {
             </>
           )
         }
-      </div>
+      </div> */}
+
+      {/* Buttons */}
+<div className="mt-6 flex space-y-3 justify-center gap-3">
+  {currentUser.status !== "fraud" && (
+    <>
+      {currentUser.role === "user" && (
+        <button
+          onClick={() => handleRoleRequest("chef")}
+          className="btn btn-primary text-black font-bold"
+        >
+          Be a Chef
+        </button>
+      )}
+
+      {currentUser.role !== "admin" && (
+        <button
+          onClick={() => handleRoleRequest("admin")}
+          className="btn bg-green-400 font-bold border-0"
+        >
+          Be an Admin
+        </button>
+      )}
+    </>
+  )}
+</div>
+
+
+      
+
+
+
       </div>
 
     </div>

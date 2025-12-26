@@ -16,9 +16,12 @@ import MyReviews from "../pages/dashboard/users/MyReviews";
 import MyFavourites from "../pages/dashboard/users/MyFavourites";
 import Payment from "../pages/dashboard/users/Payment";
 import PaymentSuccess from "../pages/dashboard/users/PaymentSuccess";
-import ManageUsers from "../pages/dashboard/chefs/ManageUsers";
-import ManageRequest from "../pages/dashboard/chefs/ManageRequest";
-import Statistic from "../pages/dashboard/chefs/Statistic";
+import ManageUsers from "../pages/dashboard/admin/ManageUsers";
+import ManageRequest from "../pages/dashboard/admin/ManageRequest";
+import Statistic from "../pages/dashboard/admin/Statistic";
+import CreateMeal from "../pages/dashboard/chef/CreateMeal";
+import MyMeal from "../pages/dashboard/chef/MyMeal";
+import OrderRequest from "../pages/dashboard/chef/OrderRequest";
 
 export const router = createBrowserRouter([
   {
@@ -134,6 +137,19 @@ export const router = createBrowserRouter([
       {
         path:"admin/statistic",
         element:<PrivateRoutes><Statistic/></PrivateRoutes>
+      },
+      // chef
+      {
+        path:"chef/create-meal",
+        element:<PrivateRoutes><CreateMeal/></PrivateRoutes>
+      },
+      {
+        path:"chef/my-meals",
+        element:<PrivateRoutes><MyMeal/></PrivateRoutes>
+      },
+      {
+        path:"chef/order-requests",
+        element:<PrivateRoutes><OrderRequest/></PrivateRoutes>
       },
     ],
   },
