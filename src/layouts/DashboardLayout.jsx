@@ -7,11 +7,13 @@ import useRole from '../hooks/useRole';
 import { IoIosStats } from 'react-icons/io';
 import { GiHotMeal, GiMeal } from "react-icons/gi";
 import { FaUsersViewfinder } from 'react-icons/fa6';
+import useTitle from '../hooks/useTitle';
 
 
 
 
 const DashboardLayout = () => {
+  useTitle("Dashboard")
 
  const { role } = useRole();
 

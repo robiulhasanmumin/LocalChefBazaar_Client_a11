@@ -3,8 +3,10 @@ import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../hooks/useAuth';
 import Swal from 'sweetalert2';
+import useTitle from '../hooks/useTitle';
 
 const Login = () => {
+  useTitle("LogIn")
   const {register,handleSubmit,formState:{errors}} = useForm();
   const location = useLocation()
   const navigate = useNavigate()

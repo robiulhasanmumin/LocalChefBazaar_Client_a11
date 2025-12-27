@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useTitle from "../../../hooks/useTitle";
 
 const PaymentSuccess = () => {
+  useTitle("Payment Seccess")
   const [searchParams] = useSearchParams();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();

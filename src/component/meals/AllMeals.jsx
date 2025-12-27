@@ -3,8 +3,10 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Meal from "./Meal";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import useTitle from "../../hooks/useTitle";
 
 const AllMeals = () => {
+  useTitle("All Meals")
   const [sort,setSort] = useState('')
   const [currentPage,setCurrentPage] = useState(1)
     const axiosSecure = useAxiosSecure()

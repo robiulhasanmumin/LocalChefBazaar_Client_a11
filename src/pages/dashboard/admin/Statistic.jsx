@@ -3,8 +3,10 @@ import { useQuery } from '@tanstack/react-query';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, PieChart, Pie, Cell, Legend } from 'recharts';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import useTitle from '../../../hooks/useTitle';
 
 const Statistic = () => {
+  useTitle("Statistics")
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 

@@ -5,8 +5,10 @@ import { useNavigate, useParams } from 'react-router';
 import Swal from 'sweetalert2';
 import useAuth from '../../hooks/useAuth';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import useTitle from '../../hooks/useTitle';
 
 const OrderMeal = () => {
+  useTitle("Oder Meal")
   const { id } = useParams();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();

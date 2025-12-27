@@ -5,8 +5,10 @@ import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
+import useTitle from '../../../hooks/useTitle';
 
 const CreateMeal = () => {
+  useTitle("Create Meal")
    const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 

@@ -3,8 +3,10 @@ import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
+import useTitle from '../../../hooks/useTitle';
 
 const MyFavourites = () => {
+  useTitle("My Favourites")
     const {user} = useAuth()
   const axiosSecure = useAxiosSecure()
 

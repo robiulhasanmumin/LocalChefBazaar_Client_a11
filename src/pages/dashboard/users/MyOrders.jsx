@@ -4,10 +4,12 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router';
+import useTitle from '../../../hooks/useTitle';
 
 
 
 const MyOrders = () => {
+  useTitle("My Orders")
   const { user } = useAuth();
 const axiosSecure = useAxiosSecure();
 const navigate = useNavigate()

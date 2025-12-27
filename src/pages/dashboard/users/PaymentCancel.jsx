@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router";
 import { MdCancel } from "react-icons/md";
+import useTitle from "../../../hooks/useTitle";
 
 const PaymentCancel = () => {
+    useTitle("Payment Cancel")
+
   const navigate = useNavigate();
 
   return (

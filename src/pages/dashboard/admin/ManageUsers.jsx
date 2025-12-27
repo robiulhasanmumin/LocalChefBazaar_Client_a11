@@ -3,8 +3,10 @@ import useAuth from '../../../hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import useTitle from '../../../hooks/useTitle';
 
 const ManageUsers = () => {
+    useTitle("Manage Users")
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 

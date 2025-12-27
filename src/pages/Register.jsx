@@ -5,8 +5,10 @@ import { useForm } from 'react-hook-form'
 import useAuth from '../hooks/useAuth'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import useTitle from '../hooks/useTitle'
 
 const Register = () => {
+  useTitle("Register")
     const location = useLocation()
   const navigate = useNavigate()
   const axiosSecure = useAxiosSecure()

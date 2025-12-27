@@ -5,8 +5,10 @@ import Swal from "sweetalert2";
 import { FaStar } from "react-icons/fa";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import useTitle from "../../../hooks/useTitle";
 
 const MyMeal = () => {
+  useTitle("My Meals")
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [selectedMeal, setSelectedMeal] = useState(null);

@@ -7,9 +7,11 @@ import { FaBowlFood, FaLocationDot } from 'react-icons/fa6'
 import { IoIosTime } from "react-icons/io";
 import useAuth from '../../hooks/useAuth'
 import Swal from 'sweetalert2'
+import useTitle from '../../hooks/useTitle'
 
 
 const MealDetails = () => {
+  useTitle("Meal Details")
   const {id} = useParams()
       const {user} = useAuth()
   const axiosSecure = useAxiosSecure()

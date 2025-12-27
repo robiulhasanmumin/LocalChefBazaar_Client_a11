@@ -3,8 +3,10 @@ import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
+import useTitle from '../../../hooks/useTitle';
 
 const OrderRequest = () => {
+  useTitle("Order Request")
    const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
