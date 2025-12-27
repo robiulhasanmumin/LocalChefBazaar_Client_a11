@@ -61,7 +61,7 @@ const MyMeal = () => {
   return (
     <div className="p-5">
       <h2 className="text-3xl font-bold mb-10 text-primary text-center">
-        My Meals
+        My Meals : {meals.length}
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -80,15 +80,9 @@ const MyMeal = () => {
                 {meal.foodName}
               </h2>
               <p>
-                Price: <span className="text-primary">{meal.price}/=</span>
+                Price: <span className="text-primary font-bold text-lg">{meal.price}/=</span>
               </p>
-              <p className="flex gap-2">
-                Rating :{" "}
-                <span className="flex items-center gap-1">
-                  <FaStar className="text-primary" /> {meal.rating}
-                </span>
-              </p>
-              <p>Ingredients: {meal.ingredients.join(", ")}</p>
+               <p>Ingredients: [ {meal.ingredients.join(", ")} ]</p>
               <p>Delivery: {meal.estimatedDeliveryTime}</p>
               <p>
                 Chef: {meal.chefName} - ({meal.chefId})
@@ -128,31 +122,47 @@ const MyMeal = () => {
           <div className="modal-box bg-gray-900">
             <h3 className="font-bold text-xl mb-4 text-primary">Update Meal</h3>
 
-            <form onSubmit={handleSubmit(handleUpdate)} className="space-y-3">
+            <form onSubmit={handleSubmit(handleUpdate)} className="space-y-2">
+              <div>
+              <label className="label">Food Name</label>
               <input
                 {...register("foodName")}
                 placeholder="Food Name"
                 className="input input-bordered w-full bg-gray-800"
               />
+              </div>
 
+
+<div>
+              <label className="label">Price</label>
               <input
                 type="number"
                 {...register("price")}
                 placeholder="Price"
                 className="input input-bordered w-full bg-gray-800"
               />
+</div>
 
+     
+     <div>
+      <label className="label">Delivery Time</label>
               <input
                 {...register("estimatedDeliveryTime")}
                 placeholder="Delivery Time"
                 className="input input-bordered w-full bg-gray-800"
               />
 
+      </div>
+
+
+<div>
+              <label className="label">Ingredients</label>
               <input
                 {...register("ingredients")}
                 placeholder="Ingredients (comma separated)"
                 className="input input-bordered w-full bg-gray-800"
               />
+</div>
 
               <div className="modal-action">
                 <button type="submit" className="btn btn-primary text-black">

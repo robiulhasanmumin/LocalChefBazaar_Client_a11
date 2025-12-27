@@ -26,32 +26,35 @@ const { data: orders = [], refetch } = useQuery({
 });
 
 
- const handlePayment = async (order) => {
+const handlePayment = async (order) => {
 
   const confirm = await Swal.fire({
-      title: `Pay ৳${order.price * order.quantity}?`,
-      text: "Do you want to proceed to payment?",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonText: "Yes, Pay Now",
-    });
+    title: `Pay ৳${order.price * order.quantity}?`,
+    text: "Do you want to proceed to payment?",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonText: "Yes, Pay Now",
+    cancelButtonColor: "red"
+  });
 
-    if (confirm.isConfirmed) {
-      // try {
-      //   Swal.fire("Payment Processing...", "This is just a placeholder.", "info");
+  if (confirm.isConfirmed) {
+    try {
+      const res = await axiosSecure.post("/create-checkout-session", {
+        orderId: order._id,
+        amount: order.price * order.quantity,
+      });
 
-      //   await axiosSecure.patch(`/orders/${order._id}/pay`, {}, {
-      //     headers: { Authorization: `Bearer ${await user.getIdToken()}` }
-      //   });
+      window.location.href = res.data.url;
 
-      //   Swal.fire("Success!", "Payment successful!", "success");
-         navigate("/payment", { state: { order } });
-      //   refetch(); 
-      // } catch {
-      //   Swal.fire("Error!", "Payment failed!", "error");
-      // }
+    } catch (error) {
+      Swal.fire("Error", "Payment failed", "error");
     }
-  };
+  }
+};
+
+
+
+
 
 
   return (
@@ -69,13 +72,13 @@ const { data: orders = [], refetch } = useQuery({
     <p><strong>Quantity:</strong> {order.quantity}</p>
     <p><strong>Price:</strong> ৳{order.price}</p>
     <p><strong>Order Status:</strong> {order.orderStatus}</p>
-    <p><strong>Payment Status:</strong> {order.paymentStatus}</p>
+    <p><strong>Payment Status:</strong> <span className={order.paymentStatus === "paid" ? "text-green-500 font-bold" : ""}>{order.paymentStatus}</span> </p>
     <p><strong>Order Time:</strong> {new Date(order.orderTime).toLocaleString()}</p>
 
     {/* Pay Button */}
      {order.orderStatus === "accepted" && order.paymentStatus === "Pending" && (
               <button
-                className="btn btn-primary mt-2"
+                className="btn btn-primary mt-2 text-black font-bold"
                 onClick={() => handlePayment(order)}
               >
                 Pay Now

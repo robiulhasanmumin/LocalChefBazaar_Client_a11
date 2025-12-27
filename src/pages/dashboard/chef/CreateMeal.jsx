@@ -60,14 +60,14 @@ const CreateMeal = () => {
 
       Swal.fire("Success!", "Meal added successfully", "success");
       reset();
-    } catch (error) {
+    } catch {
       Swal.fire("Error", "Something went wrong", "error");
     }
   };
 
 
   if (currentUser.role !== "chef" || currentUser.status === "fraud") {
-  return <p className="text-red-500 text-center">Access Denied</p>;
+  return <p className="text-primary mt-20 text-4xl text-center">You are a Fraud User. So, Access Denied</p>;
 }
 
 

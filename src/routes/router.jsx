@@ -16,6 +16,7 @@ import MyReviews from "../pages/dashboard/users/MyReviews";
 import MyFavourites from "../pages/dashboard/users/MyFavourites";
 import Payment from "../pages/dashboard/users/Payment";
 import PaymentSuccess from "../pages/dashboard/users/PaymentSuccess";
+import PaymentCancel from "../pages/dashboard/users/PaymentCancel";
 import ManageUsers from "../pages/dashboard/admin/ManageUsers";
 import ManageRequest from "../pages/dashboard/admin/ManageRequest";
 import Statistic from "../pages/dashboard/admin/Statistic";
@@ -122,6 +123,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <PaymentSuccess />
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "payment-cancel",
+        element: (
+          <PrivateRoutes>
+            <PaymentCancel />
           </PrivateRoutes>
         ),
       },

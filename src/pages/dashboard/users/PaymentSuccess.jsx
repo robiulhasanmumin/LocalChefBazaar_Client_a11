@@ -1,19 +1,35 @@
-import React from 'react'
-import { Link } from 'react-router'
+import { useEffect } from "react";
+import { useSearchParams, useNavigate } from "react-router";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const PaymentSuccess = () => {
+  const [searchParams] = useSearchParams();
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+
+  const orderId = searchParams.get("orderId");
+
+  useEffect(() => {
+    if (orderId) {
+      axiosSecure.patch(`/orders/pay/${orderId}`)
+        .then(() => {
+          Swal.fire("Payment Successful!", "Your payment has been completed.", "success");
+          navigate("/dashboard/my-orders");
+        })
+        .catch(() => {
+          Swal.fire("Error", "Payment update failed", "error");
+        });
+    }
+  }, [orderId, axiosSecure, navigate]);
+
   return (
- <div className="text-center mt-20">
-      <h1 className="text-4xl font-bold text-green-600">
-        Payment Successful 🎉
-      </h1>
-      <p className="mt-3">Thank you for your order</p>
+    <div className="h-screen flex justify-center items-center">
+      <h2 className="text-3xl font-bold text-green-500">
+        Processing Payment...
+      </h2>
+    </div>
+  );
+};
 
-      <Link to="/my-orders" className="btn btn-primary mt-5">
-        Go to My Orders
-      </Link>
-    </div>      
-    )
-}
-
-export default PaymentSuccess
+export default PaymentSuccess;
