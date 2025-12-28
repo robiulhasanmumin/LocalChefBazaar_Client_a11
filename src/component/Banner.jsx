@@ -19,7 +19,7 @@ const Banner = () => {
           Order Now
         </Link>
       </div>
-      <div className="h-[420px] w-[420px]">
+      <div className="max-h-[420px] max-w-[420px]">
         <motion.img
           iinitial={{ y: 0 }}
           animate={{ y: [0, -15, 0] }}

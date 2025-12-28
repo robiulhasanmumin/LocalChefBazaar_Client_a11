@@ -39,7 +39,7 @@ const Statistic = () => {
     <div className='p-5'>
       <h1 className="text-3xl font-bold mb-10 text-primary text-center">Platform Statistics</h1>
 
-      <div className='grid grid-cols-1 md:grid-cols-4 gap-4 mb-10'>
+      <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mb-16'>
         <div className='card p-4 shadow'>
           <p className='font-bold'>Total Users</p>
           <p className='text-xl'>{stats.totalUsers || 0}</p>
@@ -61,7 +61,7 @@ const Statistic = () => {
       {/* Charts */}
       <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
         {/* Bar chart */}
-        <BarChart width={400} height={300} data={paymentData}>
+        <BarChart width={300} height={300} data={paymentData}>
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
@@ -69,7 +69,7 @@ const Statistic = () => {
         </BarChart>
 
         {/* Pie chart */}
-        <PieChart width={400} height={300}>
+        <PieChart width={300} height={300}>
           <Pie
             data={ordersData}
             dataKey="value"
