@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useForm } from 'react-hook-form';
@@ -11,6 +11,7 @@ const CreateMeal = () => {
   useTitle("Create Meal")
    const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const [loading, setLoading] = useState(false); 
 
   const { data: currentUser = {} } = useQuery({
   queryKey: ["currentUser", user?.email],
@@ -29,8 +30,8 @@ const CreateMeal = () => {
   } = useForm();
 
  const onSubmit = async (data) => {
+  setLoading(true)
     try {
-      // 🔹 Upload image
       const imageFile = data.foodImage[0];
       const formData = new FormData();
       formData.append("image", imageFile);
@@ -49,7 +50,7 @@ const CreateMeal = () => {
         foodImage: imageUrl,
         price: parseFloat(data.price),
         rating: Number(data.rating),
-        ingredients: data.ingredients.split(","),
+        ingredients: data.ingredients.split(",").map(i => i.trim()),
         estimatedDeliveryTime: data.estimatedDeliveryTime,
         deliveryArea: data.deliveryArea,
         chefExperience: data.chefExperience,
@@ -57,14 +58,15 @@ const CreateMeal = () => {
         userEmail: user.email,
       };
 
-      // 🔹 Save to DB
       await axiosSecure.post("/meals", mealInfo);
 
       Swal.fire("Success!", "Meal added successfully", "success");
       reset();
     } catch {
       Swal.fire("Error", "Something went wrong", "error");
-    }
+    }finally {
+    setLoading(false); 
+  }
   };
 
 
@@ -170,9 +172,15 @@ const CreateMeal = () => {
           className="input input-bordered w-full bg-gray-800" />
         </div>
 
-        <button className="btn btn-primary w-fit text-black mt-3 font-bold">
-          Create Meal
-        </button>
+        <button disabled={loading} className="btn btn-primary w-fit text-black mt-3 font-bold">
+{loading ? (
+    <>
+      <span className="loading loading-spinner"></span> Creating...
+    </>
+  ) : (
+    "Create Meal"
+  )}
+          </button>
       </form>
 
     </div>

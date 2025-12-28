@@ -22,6 +22,8 @@ const Statistic = () => {
     }
   });
 
+  console.log(stats);
+
   const paymentData = [
     { name: 'Total Payments', value: stats.totalPayments || 0 }
   ];

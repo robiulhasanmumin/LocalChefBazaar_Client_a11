@@ -11,19 +11,47 @@ const PaymentSuccess = () => {
   const navigate = useNavigate();
 
   const orderId = searchParams.get("orderId");
+  const amount = searchParams.get("amount"); 
+
+  // useEffect(() => {
+  //   if (orderId) {
+  //     axiosSecure.patch(`/orders/pay/${orderId}`)
+  //       .then(() => {
+  //         Swal.fire("Payment Successful!", "Your payment has been completed.", "success");
+  //         navigate("/dashboard/my-orders");
+  //       })
+  //       .catch(() => {
+  //         Swal.fire("Error", "Payment update failed", "error");
+  //       });
+  //   }
+  // }, [orderId, axiosSecure, navigate]);
+
 
   useEffect(() => {
-    if (orderId) {
-      axiosSecure.patch(`/orders/pay/${orderId}`)
-        .then(() => {
-          Swal.fire("Payment Successful!", "Your payment has been completed.", "success");
-          navigate("/dashboard/my-orders");
-        })
-        .catch(() => {
-          Swal.fire("Error", "Payment update failed", "error");
+  if (orderId) {
+    const savePayment = async () => {
+      try {
+        await axiosSecure.post("/payments", {
+          orderId,
+          amount: parseFloat(amount), 
+          date: new Date(),
+          status: "paid"
         });
-    }
-  }, [orderId, axiosSecure, navigate]);
+
+        await axiosSecure.patch(`/orders/pay/${orderId}`);
+
+        Swal.fire("Payment Successful!", "Your payment has been completed.", "success");
+        navigate("/dashboard/my-orders");
+      } catch {
+        Swal.fire("Error", "Something went wrong", "error");
+      }
+    };
+
+    savePayment();
+  }
+}, [orderId, amount, axiosSecure, navigate]);
+
+
 
   return (
     <div className="h-screen flex justify-center items-center">

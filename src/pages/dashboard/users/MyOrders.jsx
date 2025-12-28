@@ -61,7 +61,8 @@ const handlePayment = async (order) => {
 
   return (
     <div className='p-5'>
-      <h1 className="text-3xl font-bold mb-7 text-primary text-center">My Orders : {orders.length}</h1>
+      <h1 className="text-3xl font-bold mb-5 text-primary text-center">My Orders : {orders.length}</h1>
+      <p className='text-xl mb-6 text-gray-400'>You can only make <span className='text-primary'>payment</span> if the chef <span className='text-primary'>accepts</span> the order.</p>
 
       {
         orders.length > 0 ?

@@ -66,6 +66,9 @@ const MyMeal = () => {
         My Meals : {meals.length}
       </h2>
 
+
+      {
+        meals.length > 0 ?
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {meals.map((meal) => (
           <div key={meal._id} className="border-2 p-5 rounded-2xl">
@@ -184,7 +187,10 @@ const MyMeal = () => {
             </form>
           </div>
         </dialog>
-      </div>
+      </div> :
+      <p className='text-3xl text-gray-500 mt-10'>Your Meals not found...</p>
+      }
+
     </div>
   );
 };

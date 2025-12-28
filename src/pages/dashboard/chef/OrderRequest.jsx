@@ -55,8 +55,13 @@ const OrderRequest = () => {
   
   return (
     <div className='p-5'>
-    <h1 className="text-3xl font-bold mb-10 text-primary text-center">Order Requests : {orders.length}</h1>
+    <h1 className="text-3xl font-bold mb-5 text-primary text-center">Order Requests : {orders.length}</h1>
+      <p className='text-xl mb-6 text-gray-400'>You can only <span className='text-primary'>deliver</span> if the User makes a <span className='text-primary'>Payment</span></p>
 
+
+
+     {
+      orders.length > 0 ?
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {orders.map((order) => {
 
@@ -111,7 +116,10 @@ const OrderRequest = () => {
             </div>
           );
         })}
-      </div>
+      </div> :
+      <p className='text-3xl text-gray-500 mt-10'>Order Request not found...</p>
+     } 
+
 
     </div>
   )

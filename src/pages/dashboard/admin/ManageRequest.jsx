@@ -53,6 +53,8 @@ const handleReject = async (id) => {
     <div className='p-5'>
     <h1 className="text-3xl font-bold mb-10 text-primary text-center">Manage Request : {requests.length} </h1>
 
+<div className="overflow-x-auto">
+
         <table className="table">
   <thead className='text-primary'>
     <tr>
@@ -102,6 +104,7 @@ const handleReject = async (id) => {
 </tbody>
 
 </table>
+</div>
 
     </div>
   )

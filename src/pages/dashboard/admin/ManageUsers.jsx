@@ -50,6 +50,7 @@ const handleFraud = async (id) => {
     <div className='p-5'>
     <h1 className="text-3xl font-bold mb-10 text-primary text-center">Manage Users : {users.length}</h1>
 
+<div className="overflow-x-auto">
 
     <table className="table">
   <thead className='text-primary'>
@@ -84,6 +85,7 @@ const handleFraud = async (id) => {
     ))}
   </tbody>
 </table>
+</div>
 
 
     </div>

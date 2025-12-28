@@ -1,7 +1,7 @@
 # LOCAL CHEF BAZAAR
 
-### live URL: https://study-mate-22c7d.web.app/
-### Server URL: https://study-mates-server-site.vercel.app
+### live URL: https://local-chef-bazaar-42865.web.app/
+### Server URL: https://local-chef-bazaar-server-gold.vercel.app
 
 ## Description
 **Local Chef Bazaar** is a modern online platform that connects home cooks with people looking for fresh, homemade food. Customers can explore daily menus, check a chef’s availability, place orders, make secure payments, and track their orders in real time.
