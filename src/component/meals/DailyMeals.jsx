@@ -71,12 +71,12 @@ const DailyMeals = () => {
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-5xl font-extrabold text-primary"
+          className="text-4xl md:text-5xl font-extrabold"
         >
-          Daily Specials
+          Daily <span className='text-primary'>Specials</span> 
         </motion.h2>
         <div className="w-24 h-1 bg-primary mx-auto rounded-full"></div>
-        <p className="text-base-content/70 max-w-lg mx-auto pt-2 italic">
+        <p className="text-base-content/70 max-w-lg mx-auto pt-2 text-lg">
           Handpicked delicious meals prepared fresh every day by our expert local chefs.
         </p>
       </div>
