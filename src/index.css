@@ -1,18 +1,43 @@
 @import "tailwindcss";
-@plugin "daisyui"{
-   themes: light --default
- };
 
-  @plugin "daisyui/theme" {
-  name: "light";
-  default: true;
-  --color-primary: #F0B100;
-  /* --color-secondary: #03373D; */
+ @plugin "daisyui";
+
+ @theme {
+   --color-primary: #FA812F; 
+  --color-primary-content: #ffffff;
 }
 
-li a.active{
+ :root {
+  --p: 30 100% 58%;  
+}
+
+[data-theme="dark"] {
+  --p: 38 100% 59%;  
+}
+
+
+/* DaisyUI থিম কনফিগারেশন */
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: #FA812F; /* আপনার পছন্দের কমলা/হলুদ কালার */
+  --color-base-100: #FEF3E2; 
+  --color-base-200: #faedda; 
+  --color-base-content: #1f2937; 
+}
+
+@plugin "daisyui/theme" {
+  name: "dark";
+  --color-primary: #FFB22C;
+  --color-base-100: #111827; 
+  --color-base-content: #f3f4f6; 
+}
+
+/* আপনার কাস্টম CSS */
+li a.active {
    text-decoration: underline;
    text-underline-offset: 6px;
-   color: #F0B100 ;
+   /* ভেরিয়েবল ব্যবহার */
+   color: var(--color-primary) !important; 
    font-weight: 700;
 }

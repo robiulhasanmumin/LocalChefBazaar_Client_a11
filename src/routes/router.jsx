@@ -23,6 +23,8 @@ import Statistic from "../pages/dashboard/admin/Statistic";
 import CreateMeal from "../pages/dashboard/chef/CreateMeal";
 import MyMeal from "../pages/dashboard/chef/MyMeal";
 import OrderRequest from "../pages/dashboard/chef/OrderRequest";
+import About from "../component/About";
+import Blog from "../component/Blog";
 
 export const router = createBrowserRouter([
   {
@@ -54,6 +56,14 @@ export const router = createBrowserRouter([
           </PrivateRoutes>
         ),
       },
+      {
+        path: "about",
+        Component: About
+      },
+      {
+        path: "blog",
+        Component: Blog
+      }
     ],
   },
   {

@@ -11,10 +11,21 @@ const Footer = () => {
       <div className="footer sm:footer-horizontal p-10">
         {/* logo */}
         <div>
-    <Link className='flex gap-1.5 items-center' to="/">
-      <img className='h-8 w-8' src={logo} alt="" />
-      <p className='text-xl font-bold text-yellow-500'>LocalChefBazaar</p>
+    <Link 
+      className='flex gap-2 items-center group transition-transform duration-300 active:scale-95' 
+      to="/"
+    >
+       <img 
+        className='h-9 w-9 md:h-10 md:w-10 object-contain drop-shadow-md group-hover:rotate-12 transition-transform' 
+        src={logo} 
+        alt="LocalChefBazaar Logo" 
+      />
+
+       <p className='text-2xl font-extrabold tracking-tight text-primary'>
+        LocalChef<span className='text-base-content'>Bazaar</span>
+      </p>
     </Link>
+
     <p className='mt-2'>“Fresh Homemade Food, Delivered with Care. <br /> Cooked with Love by Local Chefs”</p>
         </div>
 
