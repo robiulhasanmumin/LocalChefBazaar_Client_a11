@@ -129,10 +129,10 @@ const Navbar = () => {
                     ) : (
                         /* Desktop Only Login/Register */
                         <div className="hidden lg:flex items-center gap-2">
-                            <Link to="/login" className="btn btn-primary px-6 text-white border-none shadow-md">
+                            <Link to="/login" className="btn btn-primary px-6 rounded-xl text-white border-none shadow-md">
                                 Login
                             </Link>
-                            <Link to="/register" className="btn btn-outline px-6 hover:bg-primary hover:border-primary hover:text-white transition-all ">
+                            <Link to="/register" className="btn btn-outline px-6 rounded-xl hover:bg-primary hover:border-primary hover:text-white transition-all ">
                                 Register
                             </Link>
                         </div>

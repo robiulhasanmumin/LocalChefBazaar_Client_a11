@@ -1,19 +1,32 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaPaperPlane } from 'react-icons/fa';
+import Swal from 'sweetalert2'; // ১. SweetAlert2 ইমপোর্ট করুন
 
 const Newsletter = () => {
     const handleSubscribe = (e) => {
         e.preventDefault();
-        // আপনার সাবস্ক্রিপশন লজিক এখানে হবে (যেমন: API Call)
-        alert("Welcome to the family! Check your inbox for treats.");
+        
+         Swal.fire({
+            title: '<span style="font-family: inherit; font-weight: 900;">Welcome to our Family!</span>',
+            text: "Check your inbox for exclusive treats and recipes.",
+            icon: 'success',
+            confirmButtonColor: '#FA812F',  
+            confirmButtonText: 'Great!',
+            buttonsStyling: true,
+            customClass: {
+                popup: 'rounded-[2rem]',  
+                confirmButton: 'rounded-xl font-black px-8 py-3'
+            }
+        });
+
+         e.target.reset();
     };
 
     return (
         <section className="py-24 bg-base-100 overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 lg:px-10">
                 
-                {/* --- Main Card Container with Matching Border Radius --- */}
                 <motion.div 
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
@@ -27,7 +40,7 @@ const Newsletter = () => {
 
                     <div className="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto">
                         
-                         <motion.div
+                        <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
@@ -43,7 +56,6 @@ const Newsletter = () => {
                             </p>
                         </motion.div>
 
-                        {/* --- Subscription Form with Glassmorphism Touch --- */}
                         <motion.form 
                             onSubmit={handleSubscribe}
                             initial={{ opacity: 0, y: 20 }}
@@ -62,6 +74,7 @@ const Newsletter = () => {
                                 <motion.button 
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
+                                    type="submit"
                                     className="btn btn-primary btn-lg rounded-2xl sm:rounded-full px-10 text-white font-black shadow-lg shadow-primary/20 hover:shadow-primary/40 group flex items-center gap-3"
                                 >
                                     Subscribe
@@ -69,13 +82,11 @@ const Newsletter = () => {
                                 </motion.button>
                             </div>
                             
-                            {/* Trust Indicator */}
                             <p className="text-[11px] text-base-content/40 mt-5 italic">
                                 We value your privacy. Unsubscribe at any time with a single click.
                             </p>
                         </motion.form>
 
-                        {/* Decorative Bottom Line matching Statistics section */}
                         <div className="flex justify-center mt-12">
                             <span className="w-12 h-1 bg-primary rounded-full inline-block"></span>
                             <span className="w-3 h-1 bg-primary/30 rounded-full inline-block mx-1"></span>

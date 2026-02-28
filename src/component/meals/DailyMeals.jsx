@@ -9,13 +9,14 @@ import { motion } from 'framer-motion'
 const DailyMeals = () => {
   const axiosSecure = useAxiosSecure()
 
-  const { data: meals = [], isLoading } = useQuery({
+  const { data: mealData = { meals: [] }, isLoading } = useQuery({
     queryKey: ['meals'],
     queryFn: async () => {
       const res = await axiosSecure.get("/meals")
       return res.data
     }
   })
+  const meals = Array.isArray(mealData?.meals) ? mealData.meals : []
 
   if (isLoading) {
     return (
@@ -52,9 +53,9 @@ const DailyMeals = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {
-          meals.slice(0, 6).map((meal, index) => (
+          meals.slice(0, 4).map((meal, index) => (
             <motion.div
               key={meal._id}
               initial={{ opacity: 0, y: 30 }}
@@ -75,7 +76,7 @@ const DailyMeals = () => {
            whileTap={{ scale: 0.95 }}
         >
           <Link 
-            className='btn btn-primary btn-lg px-12 shadow-xl shadow-primary/20 hover:shadow-primary/40 group transition-all duration-300 font-black' 
+            className='btn btn-primary rounded-2xl btn-lg px-12 shadow-xl shadow-primary/20 hover:shadow-primary/40 group transition-all duration-300 font-black' 
             to="/all-meals"
           >
             Explore All Meals 

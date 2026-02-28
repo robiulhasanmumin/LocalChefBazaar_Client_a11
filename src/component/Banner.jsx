@@ -33,13 +33,13 @@ const Banner = () => {
           >
             <Link 
               to="/all-meals"
-              className="btn btn-primary btn-lg px-8 text-white font-bold shadow-lg hover:shadow-primary/30 transition-all border-none"
+              className="btn btn-primary rounded-2xl btn-lg px-8 text-white font-bold shadow-lg hover:shadow-primary/30 transition-all border-none"
             >
               Order Now
             </Link>
             <Link 
               to="/about"
-              className="btn btn-outline btn-lg px-8 font-bold hover:bg-primary hover:border-primary hover:text-white transition-all"
+              className="btn btn-outline rounded-2xl btn-lg px-8 font-bold hover:bg-primary hover:border-primary hover:text-white transition-all"
             >
               Our Story
             </Link>
