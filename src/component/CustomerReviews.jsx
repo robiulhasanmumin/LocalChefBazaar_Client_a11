@@ -30,7 +30,7 @@ const CustomerReviews = () => {
           <motion.span 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            className="text-primary font-bold uppercase tracking-widest text-sm"
+            className="text-primary font-bold tracking-[0.3em] uppercase text-xs mb-4"
           >
             Testimonials
           </motion.span>
@@ -39,9 +39,13 @@ const CustomerReviews = () => {
             whileInView={{ opacity: 1, y: 0 }}
             className='text-4xl md:text-5xl font-extrabold mt-2 text-base-content'
           >
-            What Our Foodies Say
+            What Our <span className="text-primary">Foodies</span> Say
           </motion.h2>
-          <div className="w-20 h-1.5 bg-primary mx-auto mt-4 rounded-full"></div>
+                    <div className="flex justify-center mt-4">
+                        <span className="w-16 h-1 bg-primary rounded-full inline-block"></span>
+                        <span className="w-4 h-1 bg-primary/30 rounded-full inline-block mx-1"></span>
+                        <span className="w-2 h-1 bg-primary/20 rounded-full inline-block"></span>
+                    </div>
         </div>
 
         {/* রিভিউ স্লাইডার */}

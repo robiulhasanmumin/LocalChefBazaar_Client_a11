@@ -25,6 +25,7 @@ import MyMeal from "../pages/dashboard/chef/MyMeal";
 import OrderRequest from "../pages/dashboard/chef/OrderRequest";
 import About from "../component/About";
 import Blog from "../component/Blog";
+import Contact from "../component/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -63,6 +64,10 @@ export const router = createBrowserRouter([
       {
         path: "blog",
         Component: Blog
+      },
+      {
+        path: "contact",
+        Component: Contact
       }
     ],
   },

@@ -39,7 +39,7 @@ const Banner = () => {
             </Link>
             <Link 
               to="/about"
-              className="btn btn-outline btn-lg px-8 font-bold hover:bg-primary hover:border-primary transition-all"
+              className="btn btn-outline btn-lg px-8 font-bold hover:bg-primary hover:border-primary hover:text-white transition-all"
             >
               Our Story
             </Link>

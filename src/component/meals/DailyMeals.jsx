@@ -1,41 +1,3 @@
-// import React from 'react'
-// import {useQuery} from "@tanstack/react-query"
-// import useAxiosSecure from '../../hooks/useAxiosSecure'
-// import Meal from './Meal'
-// import { Link } from 'react-router'
-// import { FaArrowRight } from 'react-icons/fa'
-
-// const DailyMeals = () => {
-//   const axiosSecure = useAxiosSecure()
-
-//   const {data:meals = []} = useQuery({
-//      queryKey: ['meals'],
-//      queryFn: async()=>{
-//       const res = await axiosSecure.get("/meals")
-//       return res.data
-//      }
-//   })
-//   return (
-//     <div>
-//       <h1 className='text-3xl font-bold text-primary text-center mt-12'>Daily Meals</h1>
-      
-//       <div className="grid md:grid-cols-3 grid-cols-1 gap-4 mt-10 lg:px-10">
-//         {
-//           meals.slice(0, 6).map(meal=><Meal meal={meal} key={meal._id}></Meal>)
-//         }
-//       </div>
-
-
-//       <div className='text-center mt-10'>
-//         <Link className='btn btn-primary text-black font-bold' to="/all-meals">All Meals <FaArrowRight /></Link>
-//       </div>
-      
-//     </div>
-//   )
-// }
-
-// export default DailyMeals
-
 import React from 'react'
 import { useQuery } from "@tanstack/react-query"
 import useAxiosSecure from '../../hooks/useAxiosSecure'
@@ -55,7 +17,7 @@ const DailyMeals = () => {
     }
   })
 
-   if (isLoading) {
+  if (isLoading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10 px-6 lg:px-10">
         {[1, 2, 3, 4, 5, 6].map(n => (
@@ -66,29 +28,40 @@ const DailyMeals = () => {
   }
 
   return (
-    <section className="py-16 px-4 md:px-10">
-       <div className="text-center mb-12 space-y-2">
-        <motion.h2 
+    <section className="py-24 px-4 md:px-10 bg-base-100">
+       <div className="text-center mb-16 max-w-3xl mx-auto">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-5xl font-extrabold"
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
         >
-          Daily <span className='text-primary'>Specials</span> 
-        </motion.h2>
-        <div className="w-24 h-1 bg-primary mx-auto rounded-full"></div>
-        <p className="text-base-content/70 max-w-lg mx-auto pt-2 text-lg">
-          Handpicked delicious meals prepared fresh every day by our expert local chefs.
-        </p>
+          <h4 className="text-primary font-bold tracking-[0.3em] uppercase text-xs mb-4">Freshly Prepared</h4>
+          <h2 className="text-4xl md:text-5xl font-black text-base-content leading-tight">
+            Daily <span className="text-primary decoration-1 underline-offset-8">Specials</span>
+          </h2>
+          <p className="text-base-content/60 mt-6 text-lg leading-relaxed">
+            Handpicked delicious meals prepared fresh every day by our expert local chefs.
+          </p>
+        </motion.div>
+        
+         <div className="flex justify-center mt-6">
+            <span className="w-16 h-1 bg-primary rounded-full inline-block"></span>
+            <span className="w-4 h-1 bg-primary/30 rounded-full inline-block mx-1"></span>
+            <span className="w-2 h-1 bg-primary/20 rounded-full inline-block"></span>
+        </div>
       </div>
 
-       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 md:gap-8 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         {
           meals.slice(0, 6).map((meal, index) => (
             <motion.div
               key={meal._id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.1 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
+              whileHover={{ y: -10 }}
             >
               <Meal meal={meal} />
             </motion.div>
@@ -96,14 +69,19 @@ const DailyMeals = () => {
         }
       </div>
 
-       <div className='flex justify-center mt-16'>
-        <Link 
-          className='btn btn-primary btn-lg text-white font-bold px-10 shadow-lg shadow-primary/20 hover:shadow-primary/40 group transition-all duration-300' 
-          to="/all-meals"
+      <div className='flex justify-center mt-20'>
+        <motion.div
+           whileHover={{ scale: 1.05 }}
+           whileTap={{ scale: 0.95 }}
         >
-          Explore All Meals 
-          <FaArrowRight className="group-hover:translate-x-2 transition-transform" />
-        </Link>
+          <Link 
+            className='btn btn-primary btn-lg px-12 shadow-xl shadow-primary/20 hover:shadow-primary/40 group transition-all duration-300 font-black' 
+            to="/all-meals"
+          >
+            Explore All Meals 
+            <FaArrowRight className="ml-2 group-hover:translate-x-2 transition-transform" />
+          </Link>
+        </motion.div>
       </div>
     </section>
   )
