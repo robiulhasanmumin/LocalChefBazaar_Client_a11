@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "local-chef-bazaar-42865"
-  }
+    "default": "local-chef-bazaar-42865",
+    "prod": "local-chef-bazaar-42865"
+  },
+  "targets": {},
+  "etags": {}
 }

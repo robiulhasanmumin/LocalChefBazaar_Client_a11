@@ -1,6 +1,6 @@
 # LOCAL CHEF BAZAAR
 
-### live URL: https://local-chef-bazaar-42865.web.app/
+### live URL: https://local-chef-bazaar-client-a11.vercel.app/
 ### Server URL: https://local-chef-bazaar-server-gold.vercel.app
 
 ## Description
