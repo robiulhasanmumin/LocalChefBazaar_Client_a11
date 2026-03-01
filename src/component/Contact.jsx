@@ -1,28 +1,48 @@
-import React, { useRef } from 'react';
+ import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import Swal from 'sweetalert2';
 import { FaPhoneAlt, FaEnvelope, FaPaperPlane, FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
-
+import useAxiosPublic from '../hooks/useAxiosPublic';
+ 
 const Contact = () => {
     const formRef = useRef();
+    const axiosPublic = useAxiosPublic();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         
-        // SweetAlert logic
-        Swal.fire({
-            title: "Message Sent!",
-            text: "Thank you for reaching out. We will get back to you soon!",
-            icon: "success",
-            confirmButtonColor: "#FA812F",  
-            timer: 3000
-        });
+         const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const subject = form.subject.value;
+        const message = form.message.value;
 
-        // Form Reset
-        formRef.current.reset();
+        const contactData = { name, email, subject, message, date: new Date() };
+
+        try {
+             const res = await axiosPublic.post('/contact', contactData);
+            
+            if (res.data.insertedId) {
+                 Swal.fire({
+                    title: "Message Sent!",
+                    text: "Thank you for reaching out. Your data is stored in our database!",
+                    icon: "success",
+                    confirmButtonColor: "#FA812F",  
+                    timer: 3000
+                });
+
+                 formRef.current.reset();
+            }
+        } catch (error) {
+            Swal.fire({
+                title: "Error!",
+                text: "Something went wrong. Please try again.",
+                icon: "error"
+            });
+        }
     };
 
-     const inputClasses = "input input-bordered w-full rounded-2xl bg-base-100 border-base-content/10 text-base-content placeholder:text-base-content/40 focus:ring-2 focus:ring-primary h-14 transition-all";
+    const inputClasses = "input input-bordered w-full rounded-2xl bg-base-100 border-base-content/10 text-base-content placeholder:text-base-content/40 focus:ring-2 focus:ring-primary h-14 transition-all";
     const textareaClasses = "textarea textarea-bordered w-full rounded-[2rem] bg-base-100 border-base-content/10 text-base-content placeholder:text-base-content/40 focus:ring-2 focus:ring-primary h-40 p-6 transition-all";
 
     return (
@@ -69,7 +89,7 @@ const Contact = () => {
                         <div className="relative h-80 w-full rounded-[3rem] overflow-hidden border-8 border-base-200 shadow-2xl group">
                             <iframe 
                                 title="location"
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.9024424301396!2d90.3910801!3d23.7508666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b888ad339cb5%3A0x20c7098d7d55daed!2sDhaka!5e0!3m2!1sen!2sbd!4v1700000000000"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.9024424301385!2d90.39063631503378!3d23.75087538458925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8bd55555555%3A0x6d1f9a567634f5d8!2sDhaka!5e0!3m2!1sen!2sbd!4v1625061234567!5m2!1sen!2sbd"
                                 className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 contrast-125"
                                 style={{ border: 0 }}
                                 allowFullScreen=""
@@ -77,23 +97,23 @@ const Contact = () => {
                             ></iframe>
                         </div>
 
-            <div className="flex gap-3 pt-2">
-              {[
-                { Icon: FaFacebook, link: "https://facebook.com" },
-                { Icon: FaInstagram, link: "https://instagram.com" },
-                { Icon: FaTwitter, link: "https://twitter.com" }
-              ].map((item, idx) => (
-                <a 
-                  key={idx}
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-xl bg-base-300 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-sm"
-                >
-                  <item.Icon size={18} />
-                </a>
-              ))}
-            </div>
+                        <div className="flex gap-3 pt-2">
+                          {[
+                            { Icon: FaFacebook, link: "https://facebook.com" },
+                            { Icon: FaInstagram, link: "https://instagram.com" },
+                            { Icon: FaTwitter, link: "https://twitter.com" }
+                          ].map((item, idx) => (
+                            <a 
+                              key={idx}
+                              href={item.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-10 h-10 rounded-xl bg-base-300 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-sm"
+                            >
+                              <item.Icon size={18} />
+                            </a>
+                          ))}
+                        </div>
                     </motion.div>
 
                     {/* Right Side: Contact Form */}
@@ -107,20 +127,20 @@ const Contact = () => {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <label className="text-[10px] font-black uppercase tracking-widest ml-2 text-base-content/70">Full Name</label>
-                                    <input type="text" placeholder="John Doe" className={inputClasses} required />
+                                    <input name="name" type="text" placeholder="John Doe" className={inputClasses} required />
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-[10px] font-black uppercase tracking-widest ml-2 text-base-content/70">Email Address</label>
-                                    <input type="email" placeholder="john@example.com" className={inputClasses} required />
+                                    <input name="email" type="email" placeholder="john@example.com" className={inputClasses} required />
                                 </div>
                             </div>
                             <div className="space-y-2">
                                 <label className="text-[10px] font-black uppercase tracking-widest ml-2 text-base-content/70">Subject</label>
-                                <input type="text" placeholder="How can we help?" className={inputClasses} required />
+                                <input name="subject" type="text" placeholder="How can we help?" className={inputClasses} required />
                             </div>
                             <div className="space-y-2">
                                 <label className="text-[10px] font-black uppercase tracking-widest ml-2 text-base-content/70">Your Message</label>
-                                <textarea className={textareaClasses} placeholder="Write your message here..." required></textarea>
+                                <textarea name="message" className={textareaClasses} placeholder="Write your message here..." required></textarea>
                             </div>
                             
                             <motion.button 

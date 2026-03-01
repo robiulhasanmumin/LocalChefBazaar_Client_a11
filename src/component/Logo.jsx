@@ -9,7 +9,7 @@ const Logo = () => {
       to="/"
     >
        <img 
-        className='h-9 w-9 md:h-10 md:w-10 hidden sm:flex object-contain drop-shadow-md group-hover:rotate-12 transition-transform' 
+        className='h-5 w-5 md:h-10 md:w-10 object-contain drop-shadow-md group-hover:rotate-12 transition-transform' 
         src={logo} 
         alt="LocalChefBazaar Logo" 
       />

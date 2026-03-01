@@ -29,8 +29,7 @@ const MealDetails = () => {
     const [comment, setComment] = useState('');
     const [ratings, setRatings] = useState(5);
 
-    // ১. সিঙ্গেল মিল লোড
-    const { data: mealData = {}, isLoading } = useQuery({
+     const { data: mealData = {}, isLoading } = useQuery({
         queryKey: ['meal', id],
         queryFn: async () => {
             const res = await axiosSecure.get(`/meals/${id}`);
@@ -38,8 +37,7 @@ const MealDetails = () => {
         }
     });
 
-    // ২. ইউজার ডাটা লোড
-    const { data: currentUser = {} } = useQuery({
+     const { data: currentUser = {} } = useQuery({
         queryKey: ['currentUser', user?.email],
         enabled: !!user?.email,
         queryFn: async () => {
@@ -48,8 +46,7 @@ const MealDetails = () => {
         }
     });
 
-    // ৩. রিভিউ লোড
-    const { data: reviews = [], refetch: reloadReviews } = useQuery({
+     const { data: reviews = [], refetch: reloadReviews } = useQuery({
         queryKey: ['reviews', id],
         queryFn: async () => {
             const res = await axiosSecure.get(`/reviews?foodId=${id}`);
@@ -57,8 +54,7 @@ const MealDetails = () => {
         }
     });
 
-    // ৪. সব মিল লোড (এরর ফিক্স সহ)
-    const { data: allMeals = [] } = useQuery({
+     const { data: allMeals = [] } = useQuery({
         queryKey: ['all-meals'],
         queryFn: async () => {
             const res = await axiosSecure.get("/meals");
@@ -66,8 +62,7 @@ const MealDetails = () => {
         }
     });
 
-    // --- এরর ফিক্সিং পার্ট ---
-    const mealsArray = Array.isArray(allMeals) ? allMeals : (allMeals?.meals || []); //
+     const mealsArray = Array.isArray(allMeals) ? allMeals : (allMeals?.meals || []); //
 
     const isFraud = currentUser?.status === "fraud";
     const { 

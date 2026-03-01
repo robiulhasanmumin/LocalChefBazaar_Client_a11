@@ -37,8 +37,7 @@ const Meal = ({ meal }) => {
                     </h3>
                 </div>
 
-                {/* Short Description (Requirement অনুযায়ী) */}
-                <p className="text-sm text-base-content/60 font-medium line-clamp-2 leading-relaxed">
+                 <p className="text-sm text-base-content/60 font-medium line-clamp-2 leading-relaxed">
                     {description || "Experience the authentic taste of home-cooked " + foodName + " prepared with fresh ingredients."}
                 </p>
 

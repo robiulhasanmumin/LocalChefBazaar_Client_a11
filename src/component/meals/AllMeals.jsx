@@ -14,25 +14,20 @@ const AllMeals = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const axiosSecure = useAxiosSecure();
 
-    // ১. ব্যাকএন্ড ফিল্টারিং কুয়েরি
-    // এখানে কুয়েরি কি (queryKey) তে স্টেটগুলো দেওয়া হয়েছে যাতে স্টেট চেঞ্জ হলে অটোমেটিক ডাটা ফেচ হয়
-    const { data: mealData = { meals: [], totalPage: 1 }, isLoading } = useQuery({
+     const { data: mealData = { meals: [], totalPage: 1 }, isLoading } = useQuery({
         queryKey: ['meals', searchTerm, sort, ratingFilter, currentPage], 
         queryFn: async () => {
-            // সার্ভারে কুয়েরি প্যারামস পাঠানো হচ্ছে
-            const res = await axiosSecure.get(
+             const res = await axiosSecure.get(
                 `/meals?search=${searchTerm}&sort=${sort}&rating=${ratingFilter}&page=${currentPage}&limit=8`
             );
             return res.data;
         }
     });
 
-    // ২. সার্ভার থেকে আসা ডাটা সরাসরি ভ্যারিয়েবলে রাখা
-    const currentMeals = mealData.meals || [];
+     const currentMeals = mealData.meals || [];
     const totalPage = mealData.totalPage || 1;
 
-    // ৩. সার্চ, সর্ট বা রেটিং ফিল্টার চেঞ্জ হলে ইউজারকে ১ম পেজে পাঠানো
-    useEffect(() => {
+     useEffect(() => {
         setCurrentPage(1);
     }, [searchTerm, sort, ratingFilter]);
 
@@ -42,8 +37,7 @@ const AllMeals = () => {
 
     return (
         <div className="min-h-screen bg-base-100 pb-24 transition-colors duration-300">
-            {/* Header & Search Section (Design Same) */}
-            <section className="bg-base-200/50 py-16 md:py-20 px-6 lg:px-10 border-b border-base-content/5">
+             <section className="bg-base-200/50 py-16 md:py-20 px-6 lg:px-10 border-b border-base-content/5">
                 <div className="max-w-7xl mx-auto text-center">
                     <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
                         <h4 className="text-primary font-bold tracking-[0.4em] uppercase text-[10px] md:text-xs mb-3">Delicious Variety</h4>

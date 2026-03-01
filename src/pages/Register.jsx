@@ -1,174 +1,190 @@
-import React from 'react'
-import { Link, useLocation, useNavigate } from 'react-router'
-import useAxiosSecure from '../hooks/useAxiosSecure'
-import { useForm } from 'react-hook-form'
-import useAuth from '../hooks/useAuth'
-import axios from 'axios'
-import Swal from 'sweetalert2'
-import useTitle from '../hooks/useTitle'
+import React, { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router';
+import { useForm } from 'react-hook-form';
+import { motion } from 'framer-motion';
+import { FaUser, FaEnvelope, FaLock, FaCamera, FaEye, FaEyeSlash } from 'react-icons/fa';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import useAuth from '../hooks/useAuth';
+import useAxiosSecure from '../hooks/useAxiosSecure';
+import useTitle from '../hooks/useTitle';
 
 const Register = () => {
-  useTitle("Register")
-    const location = useLocation()
-  const navigate = useNavigate()
-  const axiosSecure = useAxiosSecure()
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
-  const password = watch("password");
+    useTitle("Create Account | LocalChefBazaar");
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const [showPassword, setShowPassword] = useState(false);
+    const [regLoading, setRegLoading] = useState(false);
+    
+    const location = useLocation();
+    const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure();
+    const { registerUser, updateUserProfile } = useAuth();
 
-  const {registerUser,updateUserProfile}=useAuth()
- 
+    const password = watch("password");
+    const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_img_host_key}`;
 
-  const handleRegister = (data) => {
+    const handleRegister = async (data) => {
+        setRegLoading(true);
+        const profileImg = data.photo[0];
+        const formData = new FormData();
+        formData.append("image", profileImg);
 
-    const profileImg = data.photo[0]
+        try {
+            // 1. Upload Image to ImgBB first
+            const imgRes = await axios.post(image_API_URL, formData);
+            const photoURL = imgRes.data.data.url;
 
-    registerUser(data.email, data.password)
-    .then(()=>{
+            // 2. Register user in Firebase
+            await registerUser(data.email, data.password);
+
+            // 3. Update Firebase Profile
+            await updateUserProfile(data.name, photoURL);
+
+            // 4. Store user info in MongoDB
+            const userInfo = {
+                name: data.name,
+                email: data.email,
+                image: photoURL,
+                role: 'user',
+                createdAt: new Date()
+            };
+
+            const dbRes = await axiosSecure.post("/users", userInfo);
+            
+            if (dbRes.data.insertedId || dbRes.data.message) {
+                Swal.fire({
+                    title: "Welcome aboard!",
+                    text: "Your account has been created successfully.",
+                    icon: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                navigate(location.state || "/");
+            }
+        } catch (err) {
             Swal.fire({
-        title: "Registered Successfully!",
-        icon: "success"
-      });
-      
-
-      // store the img in form data 
-      const formData= new FormData()
-      formData.append("image",profileImg)
-      // send the photo to store and get the url
-      const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_img_host_key}`;
-
-      axios.post(image_API_URL, formData)
-      .then(res=>{
-        const photoURL = res.data.data.url
-        // create user 
-        const userInfo = {
-          email:data.email,
-          displayName:data.name,
-          photoURL:photoURL
+                title: "Registration Failed",
+                text: err.message,
+                icon: "error"
+            });
+        } finally {
+            setRegLoading(false);
         }
-        axiosSecure.post("/users",userInfo)
-        .then(res=>{
-          if(res.data.insertedId){
-            console.log("user created in the data base");
-          }
-        })
-        // update the profile to firebase
-        const userProfile={
-          displayName : data.name,
-          photoURL : photoURL
-        }
-        updateUserProfile(userProfile)
-        .then(()=>{
-          navigate(location.state || "/")
-        })
-        .catch(err=>{
-          alert(err);
-        })
-      })
-    })
-    .catch(err=>{
-      alert(err);
-    })
-  };
+    };
 
-  return (
-    <div>
-       <div className="card mx-auto w-full max-w-sm mt-20 md:mt-0 shrink-0">
-        <div className='px-6'>
-        <h3 className="text-3xl font-bold">Create an Account</h3>
-        <p>Register with LocalChefBazaar</p>
-        </div>
+    return (
+        <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="w-full max-w-md mx-auto"
+        >
+            <div className="px-6 mb-6 text-center md:text-left">
+                <h3 className="text-4xl font-black tracking-tighter text-base-content">Join Us</h3>
+                <p className="text-sm font-bold opacity-50 uppercase tracking-widest mt-1">Start your culinary journey</p>
+            </div>
 
-      <div className="card-body pt-3">
+            <div className="card-body p-6 bg-base-100/50 backdrop-blur-xl rounded-[2.5rem] border border-base-content/5 shadow-2xl">
+                <form onSubmit={handleSubmit(handleRegister)} className="space-y-4">
+                    
+                    {/* Name Field */}
+                    <div className="form-control">
+                        <label className="label text-[10px] font-black uppercase tracking-widest opacity-60">Full Name</label>
+                        <div className="relative">
+                            <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 opacity-30" />
+                            <input 
+                                type="text" 
+                                placeholder="Chef John Doe" 
+                                className="input input-bordered w-full pl-12 rounded-2xl h-12 bg-transparent border-base-content/10 focus:border-primary" 
+                                {...register("name", { required: "Name is required" })} 
+                            />
+                        </div>
+                        {errors.name && <p className="text-error text-[10px] font-bold mt-1 ml-2 uppercase">{errors.name.message}</p>}
+                    </div>
 
-      <form onSubmit={handleSubmit(handleRegister)}>
-        <fieldset className="fieldset">
-          {/* Name */}
-          <label className="label">Name</label>
-          <input
-            type="text"
-            {...register("name", { required: true })}
-            className="input w-full bg-gray-800"
-            placeholder="Your Name"
-          />
-          {errors.name?.type === "required" && (
-            <p className="text-red-500">Name reqired</p>
-          )}
+                    {/* Photo Upload */}
+                    <div className="form-control">
+                        <label className="label text-[10px] font-black uppercase tracking-widest opacity-60">Profile Picture</label>
+                        <div className="relative cursor-pointer">
+                            <input 
+                                type="file" 
+                                className="file-input file-input-bordered w-full rounded-2xl h-12 bg-transparent border-base-content/10" 
+                                {...register("photo", { required: "Profile photo is required" })} 
+                            />
+                        </div>
+                        {errors.photo && <p className="text-error text-[10px] font-bold mt-1 ml-2 uppercase">{errors.photo.message}</p>}
+                    </div>
 
-          {/* photo */}
-          <label className="label">Photo URL</label>
-          <input
-            type="file"
-            {...register("photo", { required: true })}
-            className="input file-input w-full bg-gray-800"
-            placeholder="photo URL"
-          />
-          {errors.photo?.type === "required" && (
-            <p className="text-red-500">PhotoURL reqired</p>
-          )}
+                    {/* Email Field */}
+                    <div className="form-control">
+                        <label className="label text-[10px] font-black uppercase tracking-widest opacity-60">Email Address</label>
+                        <div className="relative">
+                            <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 opacity-30" />
+                            <input 
+                                type="email" 
+                                placeholder="chef@example.com" 
+                                className="input input-bordered w-full pl-12 rounded-2xl h-12 bg-transparent border-base-content/10 focus:border-primary" 
+                                {...register("email", { required: "Email is required" })} 
+                            />
+                        </div>
+                        {errors.email && <p className="text-error text-[10px] font-bold mt-1 ml-2 uppercase">{errors.email.message}</p>}
+                    </div>
 
-          {/* Email */}
-          <label className="label">Email</label>
-          <input
-            type="email"
-            {...register("email", { required: true })}
-            className="input w-full bg-gray-800"
-            placeholder="Email"
-          />
-          {errors.email?.type === "required" && (
-            <p className="text-red-500">email reqired</p>
-          )}
+                    {/* Password Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="form-control">
+                            <label className="label text-[10px] font-black uppercase tracking-widest opacity-60">Password</label>
+                            <div className="relative">
+                                <input 
+                                    type={showPassword ? "text" : "password"} 
+                                    placeholder="••••••••" 
+                                    className="input input-bordered w-full rounded-2xl h-12 bg-transparent border-base-content/10 focus:border-primary" 
+                                    {...register("password", { 
+                                        required: "Required", 
+                                        pattern: {
+                                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
+                                            message: "Weak password"
+                                        }
+                                    })} 
+                                />
+                                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 opacity-30">
+                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                </button>
+                            </div>
+                        </div>
+                        <div className="form-control">
+                            <label className="label text-[10px] font-black uppercase tracking-widest opacity-60">Confirm</label>
+                            <input 
+                                type="password" 
+                                placeholder="••••••••" 
+                                className="input input-bordered w-full rounded-2xl h-12 bg-transparent border-base-content/10 focus:border-primary" 
+                                {...register("confirmPassword", { 
+                                    required: "Required",
+                                    validate: value => value === password || "Mismatch"
+                                })} 
+                            />
+                        </div>
+                    </div>
+                    {(errors.password || errors.confirmPassword) && (
+                        <p className="text-error text-[10px] font-bold ml-2 uppercase">
+                            {errors.password?.message || errors.confirmPassword?.message}
+                        </p>
+                    )}
 
-         {/*password  */}
-          <label className="label">Password</label>
-          <input
-            type="password"
-            {...register("password", { required: true, minLength: 6,pattern:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/ })}
-            className="input w-full bg-gray-800"
-            placeholder="Password"
-          />
-          {errors.password?.type === "required" && (
-            <p className="text-red-500">password required</p>
-          )}
-          {errors.password?.type === "minLength" && (
-            <p className="text-red-500">password minimum 6</p>
-          )}
-          {
-            errors.password?.type==="pattern" && <p className="text-red-500">at least 1 uppercase, lowercse and 1 digit</p>
-          }
+                    {/* Submit Button */}
+                    <button 
+                        disabled={regLoading}
+                        className="btn btn-primary w-full h-14 rounded-2xl font-black uppercase text-black shadow-lg shadow-primary/20 mt-4"
+                    >
+                        {regLoading ? <span className="loading loading-spinner"></span> : "Create Account"}
+                    </button>
+                </form>
 
+                <p className="text-center mt-6 text-sm font-medium opacity-60">
+                    Already a member? <Link className="text-primary font-black hover:underline" to="/login" state={location.state}>Sign In</Link>
+                </p>
+            </div>
+        </motion.div>
+    );
+};
 
-         {/*confirm password  */}
-          <label className="label">Confirm Password</label>
-          <input
-            type="password"
-            {...register("confirmPassword", { required: true,
-              validate: (value) =>
-              value === password || "Passwords do not match",
-             })}
-            className="input w-full bg-gray-800"
-            placeholder="Confirm Password"
-          />
-         {errors.confirmPassword && (
-         <p className="text-red-500">
-          {errors.confirmPassword.message}
-          </p>
-          )}
-
-
-          <button className="btn btn-neutral bg-primary text-black border-none shadow-none mt-4">Register</button>
-        </fieldset>
-        <p className='pt-2'>Already you have an Account <Link state={location.state} className='text-primary underline' to="/login">Login</Link> </p>
-      </form>
-
-      </div>
-    </div>
-    </div>
-  )
-}
-
-export default Register
+export default Register;

@@ -91,11 +91,11 @@ const Navbar = () => {
                 </div>
 
                 {/* --- Navbar End --- */}
-                <div className="navbar-end flex-1 gap-2 sm:gap-4">
+                <div className="navbar-end flex-1 gap-2">
                     
                     {/* Desktop Menu Links */}
                     <div className="hidden lg:flex gap-5">
-                        <ul className="menu menu-horizontal px-1 gap-1">
+                        <ul className="menu menu-horizontal px-1 gap-3">
                             {links}
                         </ul>
                     </div>
@@ -103,7 +103,7 @@ const Navbar = () => {
                     {/* Theme Toggle */}
                     <button 
                         onClick={toggleTheme} 
-                        className="btn btn-ghost btn-circle btn-sm sm:btn-md hover:bg-primary/10 transition-transform active:scale-90"
+                        className="btn btn-ghost btn-circle btn-sm sm:btn-md hover:bg-primary/10 mr-3 transition-transform active:scale-90"
                     >
                         {theme === "light" ? <FaMoon className="text-xl md:text-2xl" /> : <FaSun className="text-yellow-400 text-xl md:text-2xl" />}
                     </button>
@@ -128,9 +128,9 @@ const Navbar = () => {
                         </div>
                     ) : (
                         /* Desktop Only Login/Register */
-                        <div className="hidden lg:flex items-center gap-2">
+                        <div className="hidden lg:flex items-center gap-3">
                             <Link to="/login" className="btn btn-primary px-6 rounded-xl text-white border-none shadow-md">
-                                Login
+                                Sign In
                             </Link>
                             <Link to="/register" className="btn btn-outline px-6 rounded-xl hover:bg-primary hover:border-primary hover:text-white transition-all ">
                                 Register
