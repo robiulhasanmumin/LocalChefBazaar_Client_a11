@@ -23,54 +23,38 @@ const Register = () => {
     const password = watch("password");
     const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_img_host_key}`;
 
-    const handleRegister = async (data) => {
-        setRegLoading(true);
-        const profileImg = data.photo[0];
-        const formData = new FormData();
-        formData.append("image", profileImg);
+const handleRegister = async (data) => {
+    setRegLoading(true);
+    try {
+         const formData = new FormData();
+        formData.append("image", data.photo[0]);
+        const imgRes = await axios.post(image_API_URL, formData);
+        const photoURL = imgRes.data.data.url;
 
-        try {
-            // 1. Upload Image to ImgBB first
-            const imgRes = await axios.post(image_API_URL, formData);
-            const photoURL = imgRes.data.data.url;
+         await registerUser(data.email, data.password);
+        await updateUserProfile(data.name, photoURL);
 
-            // 2. Register user in Firebase
-            await registerUser(data.email, data.password);
+         const userInfo = {
+            name: data.name,
+            email: data.email,
+            password: data.password, 
+            image: photoURL,
+            role: 'user'
+        };
 
-            // 3. Update Firebase Profile
-            await updateUserProfile(data.name, photoURL);
-
-            // 4. Store user info in MongoDB
-            const userInfo = {
-                name: data.name,
-                email: data.email,
-                image: photoURL,
-                role: 'user',
-                createdAt: new Date()
-            };
-
-            const dbRes = await axiosSecure.post("/users", userInfo);
-            
-            if (dbRes.data.insertedId || dbRes.data.message) {
-                Swal.fire({
-                    title: "Welcome aboard!",
-                    text: "Your account has been created successfully.",
-                    icon: "success",
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-                navigate(location.state || "/");
-            }
-        } catch (err) {
-            Swal.fire({
-                title: "Registration Failed",
-                text: err.message,
-                icon: "error"
-            });
-        } finally {
-            setRegLoading(false);
+        const dbRes = await axiosSecure.post("/users", userInfo);
+        
+        if (dbRes.data.insertedId) {
+            Swal.fire({ title: "Success!", icon: "success" });
+            navigate("/");
         }
-    };
+    } catch (err) {
+        Swal.fire({ title: "Error", text: err.message, icon: "error" });
+    } finally {
+        setRegLoading(false);
+    }
+}
+
 
     return (
         <motion.div 
