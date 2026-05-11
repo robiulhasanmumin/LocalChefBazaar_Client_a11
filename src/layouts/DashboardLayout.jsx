@@ -14,14 +14,12 @@ const DashboardLayout = () => {
   const { role } = useRole();
 
   return (
-    /* ১. bg-gray-900 বাদ দিয়ে bg-base-100 এবং text-base-content ব্যবহার করা হয়েছে */
-    <div className='bg-base-100 min-h-screen text-base-content transition-colors duration-300'>
+     <div className='bg-base-100 min-h-screen text-base-content transition-colors duration-300'>
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
         
         <div className="drawer-content flex flex-col min-h-screen">
-          {/* ২. মোবাইল নেভিগেশন বার - bg-base-200 ব্যবহার করা হয়েছে */}
-          <nav className="navbar w-full bg-base-200 shadow-sm lg:hidden sticky top-0 z-50">
+           <nav className="navbar w-full bg-base-200 shadow-sm lg:hidden sticky top-0 z-50">
             <div className='flex-none'>
               <label htmlFor="my-drawer-4" className="btn btn-square btn-ghost">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-6 h-6 stroke-current">
@@ -45,8 +43,7 @@ const DashboardLayout = () => {
         {/* Sidebar */}
         <div className="drawer-side z-50">
           <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
-          {/* ৩. সাইডবারের ব্যাকগ্রাউন্ড bg-base-200 এবং বর্ডার দেওয়া হয়েছে */}
-          <div className="menu p-4 w-72 min-h-full bg-base-200 text-base-content border-r border-base-300 flex flex-col">
+           <div className="menu p-4 w-72 min-h-full bg-base-200 text-base-content border-r border-base-300 flex flex-col">
             
             {/* Sidebar Logo */}
             <div className='mb-8 px-4 hidden lg:block'>

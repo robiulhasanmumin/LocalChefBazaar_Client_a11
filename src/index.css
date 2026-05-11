@@ -20,7 +20,7 @@
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
-  --color-primary: #FA812F; /* আপনার পছন্দের কমলা/হলুদ কালার */
+  --color-primary: #FA812F;  
   --color-base-100: #FEF3E2; 
   --color-base-200: #faedda; 
   --color-base-content: #1f2937; 
@@ -33,11 +33,9 @@
   --color-base-content: #f3f4f6; 
 }
 
-/* আপনার কাস্টম CSS */
-li a.active {
+ li a.active {
    text-decoration: underline;
    text-underline-offset: 6px;
-   /* ভেরিয়েবল ব্যবহার */
-   color: var(--color-primary) !important; 
+    color: var(--color-primary) !important; 
    font-weight: 700;
 }
