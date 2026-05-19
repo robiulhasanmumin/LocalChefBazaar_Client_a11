@@ -76,5 +76,7 @@ Follow these steps to set up the project on your local machine:
 
 1. **Clone the repository:**
 ```bash
-   git clone [https://github.com/robiulhasanmumin/LocalChefBazaar_Client_a11.git](https://github.com/robiulhasanmumin/LocalChefBazaar_Client_a11.git)
+   git clone https://github.com/robiulhasanmumin/LocalChefBazaar_Client_a11.git
+   npm install
+   npm run dev 
 
